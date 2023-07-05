@@ -24,6 +24,8 @@ public class test {
             }
             reader.close();
 
+            System.out.println("Recived JSON");
+            System.out.println(content.toString());
             Gson gson = new Gson();
 //            System.out.println(gson.fromJson(content.toString()));
         } catch (IOException e) {
