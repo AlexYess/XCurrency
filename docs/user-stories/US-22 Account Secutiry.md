@@ -1,4 +1,4 @@
-# US-22 NAME OF USER STORY
+# US-22 Account security
 As a user of the website, I want to make my account secure, so nobody can login to my account without my permission.
 
 
@@ -11,7 +11,7 @@ Each user should get an account with login and password. We should check the use
 
 
 ## Story Estimate
-
+1
 
 
 ## Assignee
