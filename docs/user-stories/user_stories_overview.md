@@ -1,3 +1,4 @@
+#### Tinghong
 * As a user of the website, I want to be able to create an account so that I can store my portfolio.
 
 * As a user of the website, I want to be able to log in and view my account details.
@@ -16,6 +17,7 @@
 
 * As a user of the website, I want to be able to search other users' portfolios by their username so that I know about them.
 
+#### Oliver
 * As a currency seller/buyer, I want to be able to contact buyers/sellers so that I can make transactions with them (probably in person).
 
 * As a currency buyer, I want to see sellers’ selling history, so that I know whether I can trust a seller.
@@ -32,6 +34,7 @@
 
 * As a currency seller/buyer, I want to be able to see my past transaction history with statistics.
 
+#### Alex
 * As a currency seller/buyer, I want to be able to track price history of certain currencies so that I know when to buy in or sell out currencies.
 
 * As a user of the website, I want the website to have user-friendly interface so that I can use it without confusion.
