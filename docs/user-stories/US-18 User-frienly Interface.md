@@ -1,4 +1,4 @@
-# US-18 NAME OF USER STORY
+# US-18 User-friendly interface
 As a user of the website, I want the website to have user-friendly interface so that I can use it without confusion.
 
 
@@ -11,7 +11,7 @@ The interface of webpage should be intuitive and easy to use
 
 
 ## Story Estimate
-
+1
 
 
 ## Assignee

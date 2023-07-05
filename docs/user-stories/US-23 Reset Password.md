@@ -1,4 +1,4 @@
-# US-### NAME OF USER STORY
+# US-23 reset password
 As a user of the website, I want to be able to reset my password in case I forget it.
 
 
@@ -10,7 +10,7 @@ User should be able to reset his password
 
 
 ## Story Estimate
-
+1
 
 
 ## Assignee
