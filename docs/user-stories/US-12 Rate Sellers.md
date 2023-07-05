@@ -5,6 +5,9 @@ As a currency buyer, I want to rate the currency sellers after I buy currency fr
 ## Description
 
 After the buyer purchases from the seller, the buyer will be able to rate the seller so other buyers can determine whether or not the seller is trustworthy
+* After purchase, able to rate the profile out of 1-5 stars
+* Provide any comments
+* Submit review to be displayed on seller page
 
 ## Story Estimate
 
