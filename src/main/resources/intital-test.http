@@ -1,0 +1,8 @@
+POST http://localhost:8080/currencies
+Content-Type: application/json
+
+{
+  "currencyCode" : "EUR",
+  "lastUpdatedDate": "01/01/23",
+  "price" : 0.92
+}
