@@ -1,6 +1,8 @@
 package controller;
 
 import model.Currency;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import service.CurrencyService;
 
 import java.util.ArrayList;

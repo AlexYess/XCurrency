@@ -2,7 +2,9 @@ package service;
 
 import model.User;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserService {
     private List<User> users = new ArrayList<>();
