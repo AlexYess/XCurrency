@@ -25,4 +25,40 @@ public class User {
         this.country = country;
         this.preferredCurrency = preferredCurrency;
     }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPreferredCurrency() {
+        return preferredCurrency;
+    }
+
+    public List<Transaction> getTransactionHistory() {
+        return transactionHistory;
+    }
 }
