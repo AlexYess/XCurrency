@@ -5,6 +5,7 @@ import com.example.CurrencyExchange.service.CurrencyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,7 +23,7 @@ public class CurrencyController {
         return currencyService.GetAllCurrencies();
     }
     @PostMapping(path = "/currencies")
-    public void insertCurrency(Currency newCurrency) {
+    public void insertCurrency(@RequestBody Currency newCurrency) {
         try {
             currencyService.insertCurrency(newCurrency);
         } catch (IllegalArgumentException e) {
@@ -30,7 +31,7 @@ public class CurrencyController {
         }
     }
     @GetMapping(path = "/currencies/{currencyCode}")
-    public Optional<Currency> GetCurrencyCode(String code) {
+    public Optional<Currency> GetCurrencyCode(@RequestBody String code) {
         if (currencyService.GetCurrencyCode(code).isPresent()) {
             throw new IllegalArgumentException("Currency already present");
         }
