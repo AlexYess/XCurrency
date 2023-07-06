@@ -1,4 +1,4 @@
-package model;
+package com.example.CurrencyExchange.model;
 
 public class Transaction {
     private Long transactionID;

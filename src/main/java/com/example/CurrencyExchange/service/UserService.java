@@ -1,10 +1,8 @@
-package service;
+package com.example.CurrencyExchange.service;
 
-import model.User;
+import com.example.CurrencyExchange.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class UserService {
     private List<User> users = new ArrayList<>();
@@ -14,7 +12,7 @@ public class UserService {
     }
 
     public void insertUser(User newUser) {
-        Optional<User> userWithGivenId = getUser(newUser.getUserID());
+        Optional<User> userWithGivenId = GetUser(newUser.getUserID());
         if(userWithGivenId.isPresent()) {
             throw new IllegalArgumentException("Id already present");
         }

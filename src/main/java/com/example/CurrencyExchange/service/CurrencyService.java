@@ -1,7 +1,6 @@
-package service;
+package com.example.CurrencyExchange.service;
 
-import model.Currency;
-
+import com.example.CurrencyExchange.model.Currency;
 import java.util.*;
 
 public class CurrencyService {
