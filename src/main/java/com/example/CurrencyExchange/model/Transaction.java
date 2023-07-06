@@ -24,4 +24,84 @@ public class Transaction {
         this.expiryDate = expiryDate;
         this.isApproved = isApproved;
     }
+
+    public Long getTransactionID() {
+        return transactionID;
+    }
+
+    public Long getSellerID() {
+        return sellerID;
+    }
+
+    public Long getBuyerID() {
+        return buyerID;
+    }
+
+    public String getCurrencyCodeFrom() {
+        return currencyCodeFrom;
+    }
+
+    public String getCurrencyCodeTo() {
+        return currencyCodeTo;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setTransactionID(Long transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    public void setSellerID(Long sellerID) {
+        this.sellerID = sellerID;
+    }
+
+    public void setBuyerID(Long buyerID) {
+        this.buyerID = buyerID;
+    }
+
+    public void setCurrencyCodeFrom(String currencyCodeFrom) {
+        this.currencyCodeFrom = currencyCodeFrom;
+    }
+
+    public void setCurrencyCodeTo(String currencyCodeTo) {
+        this.currencyCodeTo = currencyCodeTo;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
 }
