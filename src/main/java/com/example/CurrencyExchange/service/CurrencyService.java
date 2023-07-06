@@ -3,7 +3,9 @@ package com.example.CurrencyExchange.service;
 import com.example.CurrencyExchange.model.Currency;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 @Service
 public class CurrencyService {
     private List<Currency> currencyList = new ArrayList<>();

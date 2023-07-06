@@ -1,14 +1,15 @@
 package com.example.CurrencyExchange.controller;
 
+import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.service.CurrencyService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.example.CurrencyExchange.service.CurrencyService;
-import com.example.CurrencyExchange.model.Currency;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class CurrencyController {

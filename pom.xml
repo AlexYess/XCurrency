@@ -12,30 +12,20 @@
 	<artifactId>CurrencyExchange</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CurrencyExchange</name>
-	<description>CurrencyExchange program written in Java</description>
+	<description>su-2023 project</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>6.0.10</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>6.0.10</version>
 		</dependency>
 	</dependencies>
 
