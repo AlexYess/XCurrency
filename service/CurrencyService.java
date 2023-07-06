@@ -2,7 +2,6 @@ package service;
 
 import model.Currency;
 
-import javax.xml.ws.http.HTTPException;
 import java.util.*;
 
 public class CurrencyService {
