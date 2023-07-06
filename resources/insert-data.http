@@ -1,0 +1,38 @@
+POST http://localhost:8080/cars
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "horsePower": 200,
+  "brand" : "Porsche",
+  "model" : "911",
+  "color" : "red",
+  "yearOfBuild" : "2023"
+}
+
+###
+
+POST http://localhost:8080/cars
+Content-Type: application/json
+
+{
+  "id" : 2,
+  "horsePower": 200,
+  "brand" : "Toyota",
+  "model" : "Corolla",
+  "color" : "white",
+  "yearOfBuild" : "2004"
+}
+
+###
+POST http://localhost:8080/cars
+Content-Type: application/json
+
+{
+  "id" : 2,
+  "horsePower": 200,
+  "brand" : "Honda",
+  "model" : "Civic",
+  "color" : "black",
+  "yearOfBuild" : "2016"
+}
