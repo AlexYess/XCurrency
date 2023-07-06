@@ -1,8 +1,10 @@
 package com.example.CurrencyExchange.service;
 
 import com.example.CurrencyExchange.model.Currency;
-import java.util.*;
+import org.springframework.stereotype.Service;
 
+import java.util.*;
+@Service
 public class CurrencyService {
     private List<Currency> currencyList = new ArrayList<>();
 
