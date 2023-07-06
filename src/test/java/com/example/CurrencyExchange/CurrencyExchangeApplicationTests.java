@@ -1,10 +1,10 @@
-package su2023.teamred;
+package com.example.CurrencyExchange;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TeamRedApplicationTests {
+class CurrencyExchangeApplicationTests {
 
 	@Test
 	void contextLoads() {

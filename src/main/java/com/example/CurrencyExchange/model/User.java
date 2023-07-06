@@ -1,8 +1,8 @@
-package model;
+package com.example.CurrencyExchange.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Transaction;
+import com.example.CurrencyExchange.model.Transaction;
 
 public class User {
     private Long userID;

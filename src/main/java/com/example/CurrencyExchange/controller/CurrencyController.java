@@ -1,11 +1,14 @@
-package controller;
+package com.example.CurrencyExchange.controller;
 
-import model.Currency;
-import service.CurrencyService;
+import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.service.CurrencyService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 public class CurrencyController {
     private final CurrencyService currencyService;
