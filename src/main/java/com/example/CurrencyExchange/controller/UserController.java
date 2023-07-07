@@ -39,4 +39,33 @@ public class UserController {
 
         return userWithTheGivenId.get();
     }
+
+    @PostMapping(path = "/users/{id}")
+    public void editUser(@PathVariable("id") Long existingUserId, @RequestBody User newUser){
+        try {
+            userService.editUser(existingUserId, newUser);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @GetMapping(path = "/users/{id}/friends")
+    public List<Long> getFriends(@PathVariable("id") Long id) {
+        try {
+            return userService.getFriends(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/users/{id}/friends")
+    public void addFriends(@PathVariable("id") Long id, @RequestBody Long friendId){
+        try {
+            userService.addFriend(id, friendId);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+
 }

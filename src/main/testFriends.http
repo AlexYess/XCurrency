@@ -1,0 +1,4 @@
+POST http://localhost:8080/users/1/friends
+Content-Type: application/json
+
+2
