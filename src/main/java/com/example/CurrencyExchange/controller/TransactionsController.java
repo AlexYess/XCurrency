@@ -50,7 +50,7 @@ public class TransactionsController {
         }
     }
 
-    @PostMapping(path = "/translation/expdate/{ID}")
+    @PostMapping(path = "/transaction/expdate/{ID}")
     public void changeExpiryDate(@PathVariable("ID") Long expdateID, String date)
     {
         try {
@@ -61,7 +61,7 @@ public class TransactionsController {
         }
     }
 
-    @GetMapping(path = "/translation/clients/buyer/{ID}")
+    @GetMapping(path = "/transaction/clients/buyer/{ID}")
     public Optional<Long> getBuyer(@PathVariable("ID") Long buyerID)
     {
         if (transactionServices.getTransactionByID(buyerID).isEmpty()) {
@@ -70,7 +70,7 @@ public class TransactionsController {
         return Optional.of(transactionServices.getBuyerByID(buyerID).get());
     }
 
-    @GetMapping(path = "/translation/clients/seller/{ID}")
+    @GetMapping(path = "/transaction/clients/seller/{ID}")
     public Optional<Long> getSeller(@PathVariable("ID") Long sellerID)
     {
         if (transactionServices.getTransactionByID(sellerID).isEmpty()) {
