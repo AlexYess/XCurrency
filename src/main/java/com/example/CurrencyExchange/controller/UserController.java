@@ -24,6 +24,7 @@ public class UserController {
 
     @PostMapping(path = "/users")
     public void insertUser(@RequestBody User newUser) {
+        // US-01 create account
         try {
             userService.insertUser(newUser);
         } catch (IllegalArgumentException e) {
@@ -33,6 +34,7 @@ public class UserController {
 
     @GetMapping(path = "/users/{id}")
     public User getUser(@PathVariable("id") Long id) {
+        // requires authentication
         Optional<User> userWithTheGivenId = userService.getUser(id);
         if (userWithTheGivenId.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -42,7 +44,9 @@ public class UserController {
     }
 
     @PostMapping(path = "/users/{id}")
-    public void editUser(@PathVariable("id") Long existingUserId, @RequestBody User newUser){
+    public void editMyAccount(@PathVariable("id") Long existingUserId, @RequestBody User newUser){
+        // US-03 edit account
+        // requires authentication
         try {
             userService.editUser(existingUserId, newUser);
         } catch (IllegalArgumentException e) {
@@ -50,8 +54,31 @@ public class UserController {
         }
     }
 
+    @PostMapping(path = "/users/{id}/delete")
+    public void deleteMyAccount(@PathVariable("id") Long id){
+        // US-04 delete account
+        // requires authentication
+        try {
+            userService.deleteUser(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @GetMapping(path = "/users/portfolio/{id}")
+    public User getUserPortfolio(@PathVariable("id") Long id) {
+        // US-09 search portfolio
+        // no authentication
+        Optional<User> userWithTheGivenId = userService.getUser(id);
+        if (userWithTheGivenId.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return userWithTheGivenId.get();
+    }
+
     @GetMapping(path = "/users/{id}/friends")
     public List<Long> getFriends(@PathVariable("id") Long id) {
+        // requires authentication
         try {
             return userService.getFriends(id);
         } catch (IllegalArgumentException e) {
@@ -61,6 +88,8 @@ public class UserController {
 
     @PostMapping(path = "/users/{id}/friends/add")
     public void addFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
+        // US-15 Add Friends
+        // requires authentication
         try {
             userService.addFriend(id, friendId);
         } catch (IllegalArgumentException e) {
@@ -69,6 +98,8 @@ public class UserController {
     }
     @PostMapping(path = "/users/{id}/friends/remove")
     public void removeFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
+        // US-16 Remove Friends
+        // requires authentication
         try {
             userService.removeFriend(id, friendId);
         } catch (IllegalArgumentException e) {
@@ -79,12 +110,16 @@ public class UserController {
 
     @GetMapping(path = "/users/{id}/transactions")
     public List<Transaction> getTxHistory(@PathVariable("id") Long id) {
+        // US-07 My Transaction History
+        // requires authentication
         try {
             return userService.getTxHistory(id);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
+
+
 
 
 }
