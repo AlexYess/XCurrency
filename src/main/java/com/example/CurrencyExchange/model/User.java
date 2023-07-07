@@ -3,6 +3,7 @@ package com.example.CurrencyExchange.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class User {
     private Long userID;
     private String firstName;

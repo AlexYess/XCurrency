@@ -2,8 +2,8 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "userID": 2,
-  "firstName": "World2",
+  "userID": 1,
+  "firstName": "World",
   "lastName": "Hello",
   "email": "test@gmail.com",
   "DOB": "1900-01-01",

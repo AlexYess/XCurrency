@@ -65,8 +65,8 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/users/portfolio/{id}")
-    public User getUserPortfolio(@PathVariable("id") Long id) {
+    @GetMapping(path = "/users/portfolio")
+    public User getUserPortfolio(@RequestParam("id") Long id) {
         // US-09 search portfolio
         // no authentication
         Optional<User> userWithTheGivenId = userService.getUser(id);
