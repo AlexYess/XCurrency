@@ -2,12 +2,15 @@ package com.example.CurrencyExchange.controller;
 
 import com.example.CurrencyExchange.model.Currency;
 import com.example.CurrencyExchange.service.CurrencyService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -29,8 +32,12 @@ public class CurrencyController {
         this.currencyService = currencyService;
     }
     @GetMapping(path = "/currencies")
-    public List<Currency> getAllCurrencies() {
-        return currencyService.getAllCurrencies();
+    public ResponseEntity<JsonNode> getAllCurrencies() {
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json";
+
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
+        return response;
     }
     @PostMapping(path = "/currencies")
     public void insertCurrency(@RequestBody Currency newCurrency) {
@@ -41,20 +48,22 @@ public class CurrencyController {
         }
     }
     @GetMapping(path = "/currencies/{currencyCode}")
-    public Currency getCurrencyCode(@PathVariable("currencyCode") String code) {
-        Optional<Currency> currentCurrency = currencyService.getCurrency(code);
-        if (currentCurrency.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return currentCurrency.get();
-    }
-
-//    @GetMapping(path = "/currencies/{currencyCode1}/{currencyCode2}")
-//    public Currency getCurrencyRate(@PathVariable("currencyCode1") String code1, @PathVariable("currencyCode2") String code2) {
-//        Optional<Currency> currentCurrency = currencyService.getCurrency(code1);
+    public ResponseEntity<JsonNode> getCurrencyCode(@PathVariable("currencyCode") String code) {
+//        Optional<Currency> currentCurrency = currencyService.getCurrency(code);
 //        if (currentCurrency.isEmpty()) {
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 //        }
-//        return currentCurrency.get();
+
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = String.format("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s.json", code);
+
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
+        return response;
+    }
+
+//    @GetMapping(path = "/currencies/{currencyCode1}/{currencyCode2}")
+//    public String getCurrencyRate(@PathVariable("currencyCode1") String code1, @PathVariable("currencyCode2") String code2) {
+//
+//        return restTemplate.getForObject("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json", Currency.class).toString();
 //    }
 }

@@ -3,7 +3,6 @@ package com.example.CurrencyExchange.model;
 public class Currency {
     private String currencyCode;
     private String name;
-
     public String getCurrencyCode() {
         return currencyCode;
     }
