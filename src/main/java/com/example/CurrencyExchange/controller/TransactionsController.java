@@ -3,13 +3,13 @@ package com.example.CurrencyExchange.controller;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.service.TransactionServices;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -82,4 +82,9 @@ public class TransactionsController {
         return Optional.of(transactionServices.getSellerByID(sellerID).get());
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
+    public void runDailyCheck()
+    {
+        transactionServices.transactionExpiry();
+    }
 }
