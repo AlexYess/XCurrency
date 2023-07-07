@@ -36,6 +36,47 @@ public class TransactionServices {
         return null;
     }
 
+    public Optional<Long> getSellerByID(Long ID)
+    {
+        for (Transaction transaction: transactionList)
+        {
+            if (transaction.getSellerID().equals(ID))
+                return Optional.of(transaction.getSellerID());
+        }
+        return Optional.empty();
+    }
 
 
+    public Optional<Long> getBuyerByID(Long ID)
+    {
+        for (Transaction transaction: transactionList)
+        {
+            if (transaction.getBuyerID().equals(ID))
+                return Optional.of(transaction.getBuyerID());
+        }
+        return Optional.empty();
+    }
+
+    public void approveTransactionByID(Long ID, boolean approvement)
+    {
+        for (Transaction transaction: transactionList)
+            if (transaction.getTransactionID().equals(ID))
+            {
+                transaction.setApproved(approvement);
+                break;
+            }
+    }
+
+    public void changeExpiryDateByID(Long ID, String exp_date)
+    {
+        for (Transaction transaction: transactionList)
+            if (transaction.getTransactionID().equals(ID))
+            {
+                transaction.setExpiryDate(exp_date);
+                break;
+            }
+    }
+
+    // set approvment status to false if past exp date
+    // add regural expression to check if date is correct
 }
