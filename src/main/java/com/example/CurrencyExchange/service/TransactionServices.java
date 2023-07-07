@@ -95,4 +95,6 @@ public class TransactionServices {
     // add regural expression to check if date is correct
 
     // buy/sell currency. Modify the insert-transaction
+
+    // delete transaction after some time?
 }

@@ -2,6 +2,7 @@ package com.example.CurrencyExchange.controller;
 
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.service.TransactionServices;
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,13 @@ import java.util.Optional;
 public class TransactionsController {
 
     private TransactionServices transactionServices;
+
+    @PostConstruct
+    public void init()
+    {
+        transactionServices.transactionExpiry();
+    }
+
     public TransactionsController(TransactionServices transactionServices) {
         this.transactionServices = transactionServices;
     }
