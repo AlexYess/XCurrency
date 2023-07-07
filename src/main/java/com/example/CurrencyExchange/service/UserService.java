@@ -82,7 +82,21 @@ public class UserService {
         }
         for (User user : users) {
             if (userID.equals(user.getUserID())) {
-                user.addFriends(friendID);
+                user.addFriend(friendID);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Id does not exist");
+    }
+
+    public void removeFriend(Long userID, Long friendID){
+        Optional<User> userWithGivenId = getUser(friendID);
+        if(userWithGivenId.isEmpty()) {
+            throw new IllegalArgumentException("friendID does not exist");
+        }
+        for (User user : users) {
+            if (userID.equals(user.getUserID())) {
+                user.removeFriend(friendID);
                 return;
             }
         }

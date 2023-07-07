@@ -15,10 +15,13 @@ public class User {
     private List<Transaction> transactionHistory = new ArrayList<>();
     private List<Long> friends = new ArrayList<>();
 
-    public void addFriends(Long friendID) {
+    public void addFriend(Long friendID) {
         this.friends.add(friendID);
     }
 
+    public void removeFriend(Long friendID){
+        this.friends.remove(friendID);
+    }
     public List<Long> getFriends() {
         return friends;
     }

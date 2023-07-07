@@ -1,5 +1,6 @@
 package com.example.CurrencyExchange.controller;
 
+import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.model.User;
 import com.example.CurrencyExchange.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -58,10 +59,28 @@ public class UserController {
         }
     }
 
-    @PostMapping(path = "/users/{id}/friends")
-    public void addFriends(@PathVariable("id") Long id, @RequestBody Long friendId){
+    @PostMapping(path = "/users/{id}/friends/add")
+    public void addFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
         try {
             userService.addFriend(id, friendId);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+    @PostMapping(path = "/users/{id}/friends/remove")
+    public void removeFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
+        try {
+            userService.removeFriend(id, friendId);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+
+    @GetMapping(path = "/users/{id}/transactions")
+    public List<Transaction> getTxHistory(@PathVariable("id") Long id) {
+        try {
+            return userService.getTxHistory(id);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
