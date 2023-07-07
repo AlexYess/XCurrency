@@ -1,9 +1,10 @@
 package com.example.CurrencyExchange.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.net.http.HttpClient;
 import java.time.LocalDate;
 import java.net.*;
 import java.io.*;
@@ -113,17 +114,23 @@ public class Transaction {
         isApproved = approved;
     }
 
-    public void setRate() throws Exception{
-        URL url = new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" + currencyCodeFrom + "/" + currencyCodeTo + ".json");
-        URLConnection connection = url.openConnection();
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                        connection.getInputStream()));
-        String input = in.toString();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rateNode = mapper.readTree(input);
-        this.rate = rateNode.get(currencyCodeTo.toString()).asLong();
+    public void setRate()
+    {
+        URL url;
+        try {
+            url = new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" + currencyCodeFrom + "/" + currencyCodeTo + ".json");
+            URLConnection connection = url.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+            String input = in.toString();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rateNode = mapper.readTree(input);
+            this.rate = rateNode.get(currencyCodeTo).asLong();
 //        System.out.println(rateNode.get(currencyCodeTo.toString()).asText());
-        in.close();
+            in.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

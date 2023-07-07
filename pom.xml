@@ -32,7 +32,11 @@
 			<artifactId>json</artifactId>
 			<version>20230618</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

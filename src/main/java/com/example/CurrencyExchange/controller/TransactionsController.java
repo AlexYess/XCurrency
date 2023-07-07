@@ -3,6 +3,7 @@ package com.example.CurrencyExchange.controller;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.service.TransactionServices;
 import jakarta.annotation.PostConstruct;
+import org.junit.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 public class TransactionsController {
@@ -45,6 +47,7 @@ public class TransactionsController {
         if (transactionServices.getTransactionByID(transactionID).isEmpty()) {
             throw new IllegalArgumentException("No transaction found");
         }
+        updateCurrencyRate(transactionID);
         return Optional.of(transactionServices.getTransactionByID(transactionID).get());
     }
 
@@ -76,6 +79,7 @@ public class TransactionsController {
         if (transactionServices.getTransactionByID(buyerID).isEmpty()) {
             throw new IllegalArgumentException("No transaction found");
         }
+        updateCurrencyRate(buyerID);
         return Optional.of(transactionServices.getBuyerByID(buyerID).get());
     }
 
@@ -85,18 +89,26 @@ public class TransactionsController {
         if (transactionServices.getTransactionByID(sellerID).isEmpty()) {
             throw new IllegalArgumentException("No transaction found");
         }
+        updateCurrencyRate(sellerID);
         return Optional.of(transactionServices.getSellerByID(sellerID).get());
     }
 
-    @GetMapping(path = "/transaction/{ID}/setrate")
-    public void setTransactionRate(@PathVariable("ID") Long ID)
-    {
-        transactionServices.setTransactionRateByID(ID);
-    }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void runDailyCheck()
     {
         transactionServices.transactionExpiry();
     }
+
+    public void updateCurrencyRate(Long ID)
+    {
+        transactionServices.rateUpdaterById(ID);
+    }
+
+    @Scheduled(cron = "0 0 */8 * * *")
+    public void updateCurrencyRateAll()
+    {
+        transactionServices.rateUpdaterAll();
+    }
+
 }
