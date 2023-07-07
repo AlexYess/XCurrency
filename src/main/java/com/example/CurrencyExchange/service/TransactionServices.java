@@ -8,6 +8,11 @@ package com.example.CurrencyExchange.service;
 import com.example.CurrencyExchange.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +96,37 @@ public class TransactionServices {
             }
         }
 
+    }
+
+    public void setTransactionRateByID(Long ID)
+    {
+        String apiUrl = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+        for (Transaction transaction: transactionList)
+        {
+            if (transaction.getTransactionID().equals(ID))
+            {
+                apiUrl = apiUrl + "/" + transaction.getCurrencyCodeTo().toLowerCase() + "/" + transaction.getCurrencyCodeFrom().toLowerCase() + ".json";
+                try {
+                    URL url = new URL(apiUrl);
+                    URLConnection connection = url.openConnection();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String line;
+                    StringBuilder response = new StringBuilder();
+
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+
+                    reader.close();
+                    System.out.println(response);
+                    String responseData = response.toString();
+                    System.out.println(responseData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     // add regural expression to check if date is correct
 

@@ -5,12 +5,10 @@ import com.example.CurrencyExchange.service.TransactionServices;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,12 +27,12 @@ public class TransactionsController {
     }
 
 //    @GetMapping(path = "/transactions")
-////    public List<Transaction> GetTransactionsHistory() {
-////        return transactionServices.getTransactionsHistory();
-////    }
+//    public List<Transaction> GetTransactionsHistory() {
+//        return transactionServices.getTransactionsHistory();
+//    }
 
     @PostMapping(path = "/transactions")
-    public void insertTransaction(Transaction newTransaction) {
+    public void insertTransaction(@RequestBody Transaction newTransaction) {
         try {
             transactionServices.insertTransaction(newTransaction);
         } catch (IllegalArgumentException e) {
@@ -88,6 +86,12 @@ public class TransactionsController {
             throw new IllegalArgumentException("No transaction found");
         }
         return Optional.of(transactionServices.getSellerByID(sellerID).get());
+    }
+
+    @GetMapping(path = "/transaction/{ID}/setrate")
+    public void setTransactionRate(@PathVariable("ID") Long ID)
+    {
+        transactionServices.setTransactionRateByID(ID);
     }
 
     @Scheduled(cron = "0 0 0 * * *")
