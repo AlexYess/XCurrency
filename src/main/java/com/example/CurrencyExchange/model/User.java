@@ -13,6 +13,18 @@ public class User {
     private String country;
     private String preferredCurrency;
     private List<Transaction> transactionHistory = new ArrayList<>();
+    private List<Long> friends = new ArrayList<>();
+
+    public void addFriend(Long friendID) {
+        this.friends.add(friendID);
+    }
+
+    public void removeFriend(Long friendID){
+        this.friends.remove(friendID);
+    }
+    public List<Long> getFriends() {
+        return friends;
+    }
 
     public User(Long userID, String firstName, String lastName, String email, String DOB, String gender, String country, String preferredCurrency) {
         this.userID = userID;
