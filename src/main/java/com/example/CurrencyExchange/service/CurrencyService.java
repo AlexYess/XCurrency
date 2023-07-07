@@ -8,20 +8,21 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class CurrencyService {
-    private List<Currency> currencyList = new ArrayList<>();
+    private final List<Currency> currencyList = new ArrayList<>();
 
-    public List<Currency> GetAllCurrencies() {
+    public List<Currency> getAllCurrencies() {
         return currencyList;
     }
     public void insertCurrency(Currency newCurrency) {
-        if (GetCurrencyCode(newCurrency.getCurrencyCode()).isPresent()) {
+        Optional<Currency> currentCurrency = getCurrency(newCurrency.getCurrencyCode());
+        if (currentCurrency.isPresent()) {
             throw new IllegalArgumentException("Currency already present");
         }
         currencyList.add(newCurrency);
     }
-    public Optional<Currency> GetCurrencyCode(String code) {
+    public Optional<Currency> getCurrency(String code) {
         for (Currency currency : currencyList) {
-            if (currency.getCurrencyCode().equals(code)) {
+            if (code.equals(currency.getCurrencyCode())) {
                 return Optional.of(currency);
             }
         }
