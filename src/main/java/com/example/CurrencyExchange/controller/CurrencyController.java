@@ -3,10 +3,7 @@ package com.example.CurrencyExchange.controller;
 import com.example.CurrencyExchange.model.Currency;
 import com.example.CurrencyExchange.service.CurrencyService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -19,8 +16,8 @@ public class CurrencyController {
         this.currencyService = currencyService;
     }
     @GetMapping(path = "/currencies")
-    public List<Currency> GetAllCurrencies() {
-        return currencyService.GetAllCurrencies();
+    public List<Currency> getAllCurrencies() {
+        return currencyService.getAllCurrencies();
     }
     @PostMapping(path = "/currencies")
     public void insertCurrency(@RequestBody Currency newCurrency) {
@@ -31,10 +28,11 @@ public class CurrencyController {
         }
     }
     @GetMapping(path = "/currencies/{currencyCode}")
-    public Optional<Currency> GetCurrencyCode(@RequestBody String code) {
-        if (currencyService.GetCurrencyCode(code).isPresent()) {
-            throw new IllegalArgumentException("Currency already present");
+    public Currency getCurrencyCode(@PathVariable("currencyCode") String code) {
+        Optional<Currency> currentCurrency = currencyService.getCurrency(code);
+        if (currentCurrency.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return Optional.of(currencyService.GetCurrencyCode(code).get());
+        return currentCurrency.get();
     }
 }

@@ -1,0 +1,14 @@
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "userID": 2,
+  "firstName": "World2",
+  "lastName": "Hello",
+  "email": "test@gmail.com",
+  "DOB": "1900-01-01",
+  "gender": "helicopter",
+  "country": "country",
+  "preferredCurrency": "eur",
+  "transactionHistory": []
+}
