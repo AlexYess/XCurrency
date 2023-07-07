@@ -8,6 +8,7 @@ package com.example.CurrencyExchange.service;
 import com.example.CurrencyExchange.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +30,12 @@ public class TransactionServices {
         transactionList.add(newTransaction);
     }
 
-    public List<Transaction> getTransactionsHistory()
-    {
-        if (!transactionList.isEmpty())
-            return transactionList;
-        return null;
-    }
+//    public List<Transaction> getTransactionsHistory()
+//    {
+//        if (!transactionList.isEmpty())
+//            return transactionList;
+//        return null;
+//    }
 
     public Optional<Long> getSellerByID(Long ID)
     {
@@ -72,11 +73,26 @@ public class TransactionServices {
         for (Transaction transaction: transactionList)
             if (transaction.getTransactionID().equals(ID))
             {
-                transaction.setExpiryDate(exp_date);
+                transaction.setExpiryDate(LocalDate.parse(exp_date));
                 break;
             }
     }
 
     // set approvment status to false if past exp date
+
+    public void transactionExpiry()
+    {
+        LocalDate current = LocalDate.now();
+        for (Transaction transaction: transactionList)
+        {
+            if (transaction.getExpiryDate().isBefore(current.minusWeeks(2)))
+            {
+                transaction.setApproved(false);
+            }
+        }
+
+    }
     // add regural expression to check if date is correct
+
+    // buy/sell currency. Modify the insert-transaction
 }

@@ -1,5 +1,7 @@
 package com.example.CurrencyExchange.model;
 
+import java.time.LocalDate;
+
 public class Transaction {
     private Long transactionID;
     private Long sellerID;
@@ -9,10 +11,10 @@ public class Transaction {
     private float rate;
     private float amount;
     private float price;
-    private String expiryDate;
+    private LocalDate expiryDate;
     private boolean isApproved;
 
-    public Transaction(Long transactionID, Long sellerID, Long buyerID, String currencyCodeFrom, String currencyCodeTo, float rate, float amount, String expiryDate, boolean isApproved) {
+    public Transaction(Long transactionID, Long sellerID, Long buyerID, String currencyCodeFrom, String currencyCodeTo, float rate, float amount, LocalDate expiryDate, boolean isApproved) {
         this.transactionID = transactionID;
         this.sellerID = sellerID;
         this.buyerID = buyerID;
@@ -57,7 +59,7 @@ public class Transaction {
         return price;
     }
 
-    public String getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
@@ -97,7 +99,7 @@ public class Transaction {
         this.price = price;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
