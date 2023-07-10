@@ -1,10 +1,16 @@
 package com.example.CurrencyExchange.model;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
+@Table(name="Users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userID;
     private String firstName;
     private String lastName;
@@ -13,19 +19,13 @@ public class User {
     private String gender;
     private String country;
     private String preferredCurrency;
-    private List<Transaction> transactionHistory = new ArrayList<>();
-    private List<Long> friends = new ArrayList<>();
+    @OneToMany(mappedBy = "userID")
+    @JsonManagedReference
+    private List<Friends> friends = new ArrayList<>();
+    public User() {
 
-    public void addFriend(Long friendID) {
-        this.friends.add(friendID);
     }
 
-    public void removeFriend(Long friendID){
-        this.friends.remove(friendID);
-    }
-    public List<Long> getFriends() {
-        return friends;
-    }
 
     public User(Long userID, String firstName, String lastName, String email, String DOB, String gender, String country, String preferredCurrency) {
         this.userID = userID;
@@ -70,7 +70,33 @@ public class User {
         return preferredCurrency;
     }
 
-    public List<Transaction> getTransactionHistory() {
-        return transactionHistory;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPreferredCurrency(String preferredCurrency) {
+        this.preferredCurrency = preferredCurrency;
+    }
+
+
 }

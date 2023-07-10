@@ -2,13 +2,11 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "userID": 1,
   "firstName": "World",
   "lastName": "Hello",
   "email": "test@gmail.com",
   "DOB": "1900-01-01",
   "gender": "helicopter",
   "country": "country",
-  "preferredCurrency": "eur",
-  "transactionHistory": []
+  "preferredCurrency": "eur"
 }
