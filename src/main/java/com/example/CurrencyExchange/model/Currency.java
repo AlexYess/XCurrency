@@ -2,6 +2,8 @@ package com.example.CurrencyExchange.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 public class Currency {
