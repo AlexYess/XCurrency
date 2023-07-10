@@ -27,6 +27,7 @@ public class CurrencyController {
         String apiUrl = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json";
 
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
+
         return response;
     }
 //    @PostMapping(path = "/currencies")
@@ -70,9 +71,33 @@ public class CurrencyController {
     @PostMapping(path = "/currencies")
     @ResponseStatus(HttpStatus.CREATED)
     public CurrencyObject addCurrency(@RequestBody CurrencyInput currency) {
+
         CurrencyObject newCurrency = currency.toNewCurrency();
         currencyRepository.save(newCurrency);
 
         return newCurrency;
+    }
+
+    @GetMapping(path = "/generatecurrencies")
+    public void regenerateCurrencies() {
+        currencyRepository.deleteAll();
+
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json";
+
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            JsonNode currenciesJson = response.getBody();
+
+            // Iterate through JSON and convert to CurrencyObject format
+            currenciesJson.fields().forEachRemaining(entry -> {
+                String currencyCode = entry.getKey();
+                String currencyName = entry.getValue().asText();
+
+                CurrencyObject currencyObject = new CurrencyObject(currencyCode, currencyName);
+                currencyRepository.save(currencyObject);
+            });
+        }
     }
 }
