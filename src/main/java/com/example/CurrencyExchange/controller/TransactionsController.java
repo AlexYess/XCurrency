@@ -1,6 +1,10 @@
 package com.example.CurrencyExchange.controller;
 
+import com.example.CurrencyExchange.dto.CurrencyInput;
+import com.example.CurrencyExchange.dto.TransactionInput;
+import com.example.CurrencyExchange.model.CurrencyObject;
 import com.example.CurrencyExchange.model.Transaction;
+import com.example.CurrencyExchange.repository.TransactionRepository;
 import com.example.CurrencyExchange.service.TransactionServices;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import java.util.Optional;
 public class TransactionsController {
 
     private TransactionServices transactionServices;
+    private TransactionRepository transactionRepository;
 
     @PostConstruct
     public void init()
@@ -22,8 +27,10 @@ public class TransactionsController {
         transactionServices.transactionExpiry();
     }
 
-    public TransactionsController(TransactionServices transactionServices) {
+    public TransactionsController(TransactionServices transactionServices, TransactionRepository transactionRepository) {
         this.transactionServices = transactionServices;
+        this.transactionRepository = transactionRepository;
+
     }
 
 //    @GetMapping(path = "/transactions")
@@ -31,14 +38,14 @@ public class TransactionsController {
 //        return transactionServices.getTransactionsHistory();
 //    }
 
-    @PostMapping(path = "/transactions")
-    public void insertTransaction(@RequestBody Transaction newTransaction) {
-        try {
-            transactionServices.insertTransaction(newTransaction);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
+//    @PostMapping(path = "/transactions")
+//    public void insertTransaction(@RequestBody Transaction newTransaction) {
+//        try {
+//            transactionServices.insertTransaction(newTransaction);
+//        } catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
 
     @GetMapping(path = "/transaction/{ID}")
     public Optional<Transaction> GetTransactionId(@PathVariable("ID") Long transactionID) {
@@ -72,13 +79,13 @@ public class TransactionsController {
     }
 
     @GetMapping(path = "/transaction/{ID}/clients/buyer")
-    public Optional<Long> getBuyer(@PathVariable("ID") Long buyerID)
+    public Optional<Long> getBuyer(@PathVariable("ID") Long ID)
     {
-        if (transactionServices.getTransactionByID(buyerID).isEmpty()) {
+        if (transactionServices.getTransactionByID(ID).isEmpty()) {
             throw new IllegalArgumentException("No transaction found");
         }
-        updateCurrencyRate(buyerID);
-        return Optional.of(transactionServices.getBuyerByID(buyerID).get());
+        updateCurrencyRate(ID);
+        return Optional.of(transactionServices.getBuyerByID(ID).get());
     }
 
     @GetMapping(path = "/transaction/{ID}/clients/seller")
@@ -107,6 +114,19 @@ public class TransactionsController {
     public void updateCurrencyRateAll()
     {
         transactionServices.rateUpdaterAll();
+    }
+
+    @PostMapping(path = "/transactions")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Transaction addTransaction(@RequestBody TransactionInput transaction) {
+        Transaction newTransaction = transaction.toNewTransaction();
+        transactionRepository.save(newTransaction);
+        try {
+            transactionServices.insertTransaction(newTransaction);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        return newTransaction;
     }
 
 }
