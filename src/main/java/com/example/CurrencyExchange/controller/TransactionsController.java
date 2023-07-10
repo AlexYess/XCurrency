@@ -3,13 +3,11 @@ package com.example.CurrencyExchange.controller;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.service.TransactionServices;
 import jakarta.annotation.PostConstruct;
-import org.junit.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
 
 
