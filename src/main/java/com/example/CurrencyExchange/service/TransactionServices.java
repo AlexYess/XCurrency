@@ -8,6 +8,7 @@ package com.example.CurrencyExchange.service;
 import com.example.CurrencyExchange.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +26,40 @@ public class TransactionServices {
         return Optional.empty();
     }
 
-    public void insertTransaction(Transaction newTransaction)
-    {
-        transactionList.add(newTransaction);
-    }
-
-//    public List<Transaction> getTransactionsHistory()
+//    public void testingShit()
 //    {
-//        if (!transactionList.isEmpty())
-//            return transactionList;
-//        return null;
+//        try {
+//            // Установка соединения с базой данных H2
+//            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
+//
+//            // Создание SQL-запроса
+//            String sql = "SELECT * FROM TRANSACTION";
+//
+//            // Создание объекта Statement для выполнения запроса
+//            Statement statement = connection.createStatement();
+//
+//            // Выполнение запроса и получение результирующего набора данных
+//            ResultSet resultSet = statement.executeQuery(sql);
+//            // Обработка результирующего набора данных
+//            while (resultSet.next()) {
+//                // Получение значений полей из результирующего набора
+//                int id = resultSet.getInt("TRANSACTIONID");
+//
+//                // Делайте что-то с полученными данными
+//                System.out.println("ID: " + id);
+//            }
+//            // Закрытие результирующего набора, Statement и соединения
+//            resultSet.close();
+//            statement.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 //    }
+
 
     public Optional<Long> getSellerByID(Long ID)
     {
-        for (Transaction transaction: transactionList)
-        {
-            if (transaction.getTransactionID().equals(ID))
-                return Optional.of(transaction.getSellerID());
-        }
         return Optional.empty();
     }
 
@@ -110,10 +126,4 @@ public class TransactionServices {
         }
     }
 
-
-    // add regural expression to check if date is correct
-
-    // buy/sell currency. Modify the insert-transaction
-
-    // delete transaction after some time?
 }
