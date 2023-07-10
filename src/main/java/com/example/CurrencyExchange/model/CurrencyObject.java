@@ -2,9 +2,10 @@ package com.example.CurrencyExchange.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class Currency {
+public class CurrencyObject {
     @Id
     private String currencyCode;
     private String name;

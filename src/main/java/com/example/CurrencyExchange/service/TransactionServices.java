@@ -41,7 +41,7 @@ public class TransactionServices {
     {
         for (Transaction transaction: transactionList)
         {
-            if (transaction.getSellerID().equals(ID))
+            if (transaction.getTransactionID().equals(ID))
                 return Optional.of(transaction.getSellerID());
         }
         return Optional.empty();
@@ -52,7 +52,7 @@ public class TransactionServices {
     {
         for (Transaction transaction: transactionList)
         {
-            if (transaction.getBuyerID().equals(ID))
+            if (transaction.getTransactionID().equals(ID))
                 return Optional.of(transaction.getBuyerID());
         }
         return Optional.empty();

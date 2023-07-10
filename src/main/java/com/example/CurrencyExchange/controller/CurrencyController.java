@@ -1,7 +1,7 @@
 package com.example.CurrencyExchange.controller;
 
 import com.example.CurrencyExchange.dto.CurrencyInput;
-import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.model.CurrencyObject;
 import com.example.CurrencyExchange.repository.CurrencyRepository;
 import com.example.CurrencyExchange.service.CurrencyService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,14 +29,14 @@ public class CurrencyController {
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
         return response;
     }
-    @PostMapping(path = "/currencies")
-    public void insertCurrency(@RequestBody Currency newCurrency) {
-        try {
-            currencyService.insertCurrency(newCurrency);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
+//    @PostMapping(path = "/currencies")
+//    public void insertCurrency(@RequestBody CurrencyObject newCurrency) {
+//        try {
+//            currencyService.insertCurrency(newCurrency);
+//        } catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
     @GetMapping(path = "/currencies/{currencyCode}")
     public ResponseEntity<JsonNode> getCurrencyCode(@PathVariable("currencyCode") String code) {
         try {
@@ -69,8 +69,8 @@ public class CurrencyController {
 
     @PostMapping(path = "/currencies")
     @ResponseStatus(HttpStatus.CREATED)
-    public Currency addCurrency(@RequestBody CurrencyInput currency) {
-        Currency newCurrency = currency.toNewCurrency();
+    public CurrencyObject addCurrency(@RequestBody CurrencyInput currency) {
+        CurrencyObject newCurrency = currency.toNewCurrency();
         currencyRepository.save(newCurrency);
 
         return newCurrency;
