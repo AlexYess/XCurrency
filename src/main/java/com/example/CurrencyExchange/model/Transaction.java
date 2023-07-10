@@ -119,7 +119,7 @@ public class Transaction {
         URL url;
         try {
             url = new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" +
-                    currencyCodeFrom.toLowerCase() + "/" + currencyCodeTo.toLowerCase() + ".json");
+                    currencyCodeFrom + "/" + currencyCodeTo + ".json");
             URLConnection connection = url.openConnection();
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
