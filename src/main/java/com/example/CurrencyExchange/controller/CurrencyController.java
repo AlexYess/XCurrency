@@ -1,6 +1,8 @@
 package com.example.CurrencyExchange.controller;
 
+import com.example.CurrencyExchange.dto.CurrencyInput;
 import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.repository.CurrencyRepository;
 import com.example.CurrencyExchange.service.CurrencyService;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class CurrencyController {
     private final CurrencyService currencyService;
+    private CurrencyRepository currencyRepository;
     private static final String[] baseUrlsArr = new String[]{"https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/", "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/"};
     private static final String[] suffixArr = new String[]{".min.json", ".json"};
-    public CurrencyController(CurrencyService currencyService) {
+    public CurrencyController(CurrencyService currencyService, CurrencyRepository currencyRepository) {
         this.currencyService = currencyService;
+        this.currencyRepository = currencyRepository;
     }
     @GetMapping(path = "/currencies")
     public ResponseEntity<JsonNode> getAllCurrencies() {
@@ -61,5 +65,14 @@ public class CurrencyController {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    @PostMapping(path = "/currencies")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Currency addCurrency(@RequestBody CurrencyInput currency) {
+        Currency newCurrency = currency.toNewCurrency();
+        currencyRepository.save(newCurrency);
+
+        return newCurrency;
     }
 }

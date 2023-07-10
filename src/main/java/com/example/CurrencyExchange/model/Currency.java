@@ -1,6 +1,11 @@
 package com.example.CurrencyExchange.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Currency {
+    @Id
     private String currencyCode;
     private String name;
     public String getCurrencyCode() {

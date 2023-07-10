@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Currency;
 import java.util.List;
 
-public class CurrencyRepository {
-    @Repository
-    public interface SongRepository extends JpaRepository<Currency, Long> {
-        List<Currency> findByTitleContainsIgnoreCase(String name);
-    }
+@Repository
+public interface CurrencyRepository extends JpaRepository<Currency, String> {
+    List<Currency> findByCodeContainsIgnoreCase(String code);
 }
