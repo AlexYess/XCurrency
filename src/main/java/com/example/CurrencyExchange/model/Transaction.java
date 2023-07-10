@@ -1,13 +1,14 @@
 package com.example.CurrencyExchange.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDate;
-import java.net.*;
-import java.io.*;
 
 public class Transaction {
     private Long transactionID;
@@ -25,8 +26,8 @@ public class Transaction {
         this.transactionID = transactionID;
         this.sellerID = sellerID;
         this.buyerID = buyerID;
-        this.currencyCodeFrom = currencyCodeFrom;
-        this.currencyCodeTo = currencyCodeTo;
+        this.currencyCodeFrom = currencyCodeFrom.toLowerCase();
+        this.currencyCodeTo = currencyCodeTo.toLowerCase();
         this.rate = rate;
         this.amount = amount;
         this.price = rate * amount;
@@ -114,21 +115,25 @@ public class Transaction {
         isApproved = approved;
     }
 
-    public void setRate()
-    {
+    public void setRate() {
         URL url;
         try {
-            url = new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" + currencyCodeFrom + "/" + currencyCodeTo + ".json");
+            url = new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" +
+                    currencyCodeFrom.toLowerCase() + "/" + currencyCodeTo.toLowerCase() + ".json");
             URLConnection connection = url.openConnection();
             BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            connection.getInputStream()));
-            String input = in.toString();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode rateNode = mapper.readTree(input);
-            this.rate = rateNode.get(currencyCodeTo).asLong();
-//        System.out.println(rateNode.get(currencyCodeTo.toString()).asText());
+                    new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
             in.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rateNode = mapper.readTree(response.toString());
+            this.rate = rateNode.get(currencyCodeTo).asLong();
+            this.price = rate*amount;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
