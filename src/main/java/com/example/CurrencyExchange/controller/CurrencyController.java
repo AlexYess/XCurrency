@@ -29,14 +29,14 @@ public class CurrencyController {
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(apiUrl, JsonNode.class);
         return response;
     }
-    @PostMapping(path = "/currencies")
-    public void insertCurrency(@RequestBody CurrencyObject newCurrency) {
-        try {
-            currencyService.insertCurrency(newCurrency);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
+//    @PostMapping(path = "/currencies")
+//    public void insertCurrency(@RequestBody CurrencyObject newCurrency) {
+//        try {
+//            currencyService.insertCurrency(newCurrency);
+//        } catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
     @GetMapping(path = "/currencies/{currencyCode}")
     public ResponseEntity<JsonNode> getCurrencyCode(@PathVariable("currencyCode") String code) {
         try {
@@ -67,12 +67,12 @@ public class CurrencyController {
         return null;
     }
 
-//    @PostMapping(path = "/currencies")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public CurrencyObject addCurrency(@RequestBody CurrencyInput currency) {
-//        CurrencyObject newCurrency = currency.toNewCurrency();
-//        currencyRepository.save(newCurrency);
-//
-//        return newCurrency;
-//    }
+    @PostMapping(path = "/currencies")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CurrencyObject addCurrency(@RequestBody CurrencyInput currency) {
+        CurrencyObject newCurrency = currency.toNewCurrency();
+        currencyRepository.save(newCurrency);
+
+        return newCurrency;
+    }
 }
