@@ -1,7 +1,7 @@
 package com.example.CurrencyExchange.controller;
 
 import com.example.CurrencyExchange.dto.CurrencyInput;
-import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.model.CurrencyObject;
 import com.example.CurrencyExchange.repository.CurrencyRepository;
 import com.example.CurrencyExchange.service.CurrencyService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,7 +30,7 @@ public class CurrencyController {
         return response;
     }
     @PostMapping(path = "/currencies")
-    public void insertCurrency(@RequestBody Currency newCurrency) {
+    public void insertCurrency(@RequestBody CurrencyObject newCurrency) {
         try {
             currencyService.insertCurrency(newCurrency);
         } catch (IllegalArgumentException e) {
@@ -67,12 +67,12 @@ public class CurrencyController {
         return null;
     }
 
-    @PostMapping(path = "/currencies")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Currency addCurrency(@RequestBody CurrencyInput currency) {
-        Currency newCurrency = currency.toNewCurrency();
-        currencyRepository.save(newCurrency);
-
-        return newCurrency;
-    }
+//    @PostMapping(path = "/currencies")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public CurrencyObject addCurrency(@RequestBody CurrencyInput currency) {
+//        CurrencyObject newCurrency = currency.toNewCurrency();
+//        currencyRepository.save(newCurrency);
+//
+//        return newCurrency;
+//    }
 }

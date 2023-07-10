@@ -1,6 +1,6 @@
 package com.example.CurrencyExchange.dto;
 
-import com.example.CurrencyExchange.model.Currency;
+import com.example.CurrencyExchange.model.CurrencyObject;
 
 public class CurrencyInput {
     private String currencyCode;
@@ -18,8 +18,8 @@ public class CurrencyInput {
     public void setName(String name) {
         this.name = name;
     }
-    public Currency toNewCurrency() {
-        Currency newCurrency = new Currency();
+    public CurrencyObject toNewCurrency() {
+        CurrencyObject newCurrency = new CurrencyObject();
 
         newCurrency.setCurrencyCode(this.currencyCode);
         newCurrency.setName(this.name);
