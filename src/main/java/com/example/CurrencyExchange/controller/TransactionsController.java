@@ -6,10 +6,10 @@ import com.example.CurrencyExchange.repository.TransactionRepository;
 import com.example.CurrencyExchange.service.TransactionServices;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -22,7 +22,7 @@ public class TransactionsController {
     @PostConstruct
     public void init()
     {
-        transactionServices.transactionExpiry();
+//        transactionServices.transactionExpiry();
 //        transactionServices.testingShit();
     }
 
@@ -33,74 +33,64 @@ public class TransactionsController {
     }
 
 
-    @GetMapping(path = "/transaction/{ID}")
-    public Optional<Transaction> GetTransactionId(@PathVariable("ID") Long transactionID) {
-        if (transactionServices.getTransactionByID(transactionID).isEmpty()) {
-            throw new IllegalArgumentException("No transaction found");
-        }
-        updateCurrencyRate(transactionID);
-        return Optional.of(transactionServices.getTransactionByID(transactionID).get());
+//    @GetMapping(path = "/transaction/{ID}")
+//    public Optional<Transaction> GetTransactionId(@PathVariable("ID") Long transactionID) {
+//        return transactionServices.getTransactionByID(transactionID);
+//    }
+
+    @PostMapping(path = "/transaction/{transactionId}/confirmation")
+    public void confirmTransaction(@PathVariable("transactionId") Long transactionId, @RequestBody Map<String, Object> request) {
+        boolean isApproved = (boolean) request.get("isApproved"); // Получаем значение isApproved из запроса
+
+        // Выполняем обновление значения в базе данных
+        transactionServices.approveTransactionByID(transactionId, isApproved);
     }
 
-    @PostMapping(path = "/transaction/{ID}/confirmation")
-    public void approveTransaction(@PathVariable("ID") Long confimationID, boolean confirmation)
-    {
-        try {
-            transactionServices.approveTransactionByID(confimationID, confirmation);
-        }
-        catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
 
-    @PostMapping(path = "/transaction/{ID}/expdate")
-    public void changeExpiryDate(@PathVariable("ID") Long expdateID, String date)
-    {
-        try {
-            transactionServices.changeExpiryDateByID(expdateID, date); // date format YYYY-MM-DD
-        }
-        catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
-
-    @GetMapping(path = "/transaction/{ID}/clients/buyer")
-    public Optional<Long> getBuyer(@PathVariable("ID") Long ID)
-    {
-        if (transactionServices.getTransactionByID(ID).isEmpty()) {
-            throw new IllegalArgumentException("No transaction found");
-        }
-        updateCurrencyRate(ID);
-        return Optional.of(transactionServices.getBuyerByID(ID).get());
-    }
+//    @PostMapping(path = "/transaction/{ID}/expdate")
+//    public void changeExpiryDate(@PathVariable("ID") Long expdateID, String date)
+//    {
+//        try {
+//            transactionServices.changeExpiryDateByID(expdateID, date); // date format YYYY-MM-DD
+//        }
+//        catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
+//
+//    @GetMapping(path = "/transaction/{ID}/clients/buyer")
+//    public Optional<Long> getBuyer(@PathVariable("ID") Long ID)
+//    {
+//        if (transactionServices.getTransactionByID(ID).isEmpty()) {
+//            throw new IllegalArgumentException("No transaction found");
+//        }
+////        updateCurrencyRate(ID);
+//        return Optional.of(transactionServices.getBuyerByID(ID).get());
+//    }
 
     @GetMapping(path = "/transaction/{ID}/clients/seller")
     public Optional<Long> getSeller(@PathVariable("ID") Long sellerID)
     {
-        if (transactionServices.getTransactionByID(sellerID).isEmpty()) {
-            throw new IllegalArgumentException("No transaction found");
-        }
-        updateCurrencyRate(sellerID);
-        return Optional.of(transactionServices.getSellerByID(sellerID).get());
+        return transactionServices.getSellerByID(sellerID);
     }
 
 
-    @Scheduled(cron = "0 0 0 * * *")
-    public void runDailyCheck()
-    {
-        transactionServices.transactionExpiry();
-    }
-
-    public void updateCurrencyRate(Long ID)
-    {
-        transactionServices.rateUpdaterById(ID);
-    }
-
-    @Scheduled(cron = "0 0 */8 * * *")
-    public void updateCurrencyRateAll()
-    {
-        transactionServices.rateUpdaterAll();
-    }
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void runDailyCheck()
+//    {
+//        transactionServices.transactionExpiry();
+//    }
+//
+//    public void updateCurrencyRate(Long ID)
+//    {
+//        transactionServices.rateUpdaterById(ID);
+//    }
+//
+//    @Scheduled(cron = "0 0 */8 * * *")
+//    public void updateCurrencyRateAll()
+//    {
+//        transactionServices.rateUpdaterAll();
+//    }
 
     @PostMapping(path = "/transactions")
     @ResponseStatus(HttpStatus.CREATED)
@@ -108,6 +98,12 @@ public class TransactionsController {
         Transaction newTransaction = transaction.toNewTransaction();
         transactionRepository.save(newTransaction);
         return newTransaction;
+    }
+
+    @GetMapping(path = "/transactions/approved")
+    public List<Transaction> getApprovedTransactions()
+    {
+        return transactionRepository.findAllByisApproved(true);
     }
 
 }
