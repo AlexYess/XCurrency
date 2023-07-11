@@ -13,9 +13,7 @@ public class UserInput {
     private String lastName;
     private String email;
     private String password;
-    private String gender;
     private String country;
-    private String preferredCurrency;
 
 
     public String getFirstName() {
@@ -34,16 +32,8 @@ public class UserInput {
         return password;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public String getPreferredCurrency() {
-        return preferredCurrency;
     }
 
     public User toNewUser() {
@@ -54,8 +44,6 @@ public class UserInput {
         newUser.setCountry(this.country);
         newUser.setpassword(this.password);
         newUser.setEmail(this.email);
-        newUser.setGender(this.gender);
-        newUser.setPreferredCurrency(this.preferredCurrency);
 
         return newUser;
     }

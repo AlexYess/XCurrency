@@ -27,10 +27,11 @@ public class UserController {
     }
 
     @PostMapping(path = "/users")
-    public void insertUser(@RequestBody UserInput newUser) {
+    @ResponseBody
+    public User insertUser(@RequestBody UserInput newUser) {
         // US-01 create account
         try {
-            userService.insertUser(newUser);
+            return userService.insertUser(newUser);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
