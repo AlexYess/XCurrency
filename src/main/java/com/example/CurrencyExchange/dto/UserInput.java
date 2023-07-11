@@ -12,7 +12,7 @@ public class UserInput {
     private String firstName;
     private String lastName;
     private String email;
-    private String DOB;
+    private String password;
     private String gender;
     private String country;
     private String preferredCurrency;
@@ -30,8 +30,8 @@ public class UserInput {
         return email;
     }
 
-    public String getDOB() {
-        return DOB;
+    public String getpassword() {
+        return password;
     }
 
     public String getGender() {
@@ -52,7 +52,7 @@ public class UserInput {
         newUser.setLastName(this.lastName);
         newUser.setFirstName(this.firstName);
         newUser.setCountry(this.country);
-        newUser.setDOB(this.DOB);
+        newUser.setpassword(this.password);
         newUser.setEmail(this.email);
         newUser.setGender(this.gender);
         newUser.setPreferredCurrency(this.preferredCurrency);

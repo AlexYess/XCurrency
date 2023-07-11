@@ -3,18 +3,27 @@ package com.example.CurrencyExchange.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-public class Friends {
+public class Friend {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne
-    @JsonBackReference
-    User user;
+    private Long userID;
     private Long friendID;
     private String date;
 
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public void setFriendID(Long friendID) {
+        this.friendID = friendID;
+    }
+
+
+    public Friend() {
+
+    }
 }
