@@ -46,9 +46,9 @@ public class UserController {
         return userWithTheGivenId;
     }
 
-    @GetMapping(path = "/users", params = "lastname")
-    public List<User> getUserByLastName(@RequestParam("lastname") String lastName) {
-        List<User> users = userService.getUserByLastName(lastName);
+    @GetMapping(path = "/users", params = "username")
+    public List<User> getUserByUsername(@RequestParam("username") String username) {
+        List<User> users = userService.getUserByUsername(username);
         if (Objects.isNull(users)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
