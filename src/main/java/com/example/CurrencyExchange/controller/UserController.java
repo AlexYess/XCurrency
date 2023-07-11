@@ -36,14 +36,22 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/users/{id}")
-    public User getUser(@PathVariable("id") Long id) {
-        // requires authentication
+    @GetMapping(path = "/users", params = "id")
+    public User getUser(@RequestParam("id") Long id) {
         User userWithTheGivenId = userService.getUser(id);
         if (Objects.isNull(userWithTheGivenId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return userWithTheGivenId;
+    }
+
+    @GetMapping(path = "/users", params = "lastname")
+    public List<User> getUserByLastName(@RequestParam("lastname") String lastName) {
+        List<User> users = userService.getUserByLastName(lastName);
+        if (Objects.isNull(users)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return users;
     }
 
     @PostMapping(path = "/users/{id}/delete")
