@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>XCurrency - Currencies</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XCurrency - Currencies</title>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    </head>
 </head>
 <body>
 <h1>XCurrency - Search for Avaliable Currencies</h1>
@@ -14,7 +18,7 @@
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const value = data[key];
-                dataDiv.innerHTML += `<li>${key} : ${value}</li>`;
+                dataDiv.innerHTML += `<br>${key.toUpperCase()} (${value})</br>`;
             }
         }
         dataDiv.innerHTML += '</ul>';
