@@ -31,10 +31,16 @@ public class UserService {
         return newUser;
     }
 
+//    public User updateUser(UserInput user) {
+////        private Long userID = user.get
+//    }
+
     public User getUser(Long userID) {
         return userRepository.findByUserID(userID);
     }
-
+    public List<User> getUserByLastName(String name) {
+        return userRepository.findByLastName(name);
+    }
 
     public void deleteUser(Long existingUserId){
         userRepository.deleteById(existingUserId);
