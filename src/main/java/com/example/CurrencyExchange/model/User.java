@@ -15,24 +15,24 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String DOB;
+    private String password;
     private String gender;
     private String country;
     private String preferredCurrency;
-    @OneToMany(mappedBy = "userID")
-    @JsonManagedReference
-    private List<Friends> friends = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference
+//    private List<Friend> friends = new ArrayList<>();
     public User() {
 
     }
 
 
-    public User(Long userID, String firstName, String lastName, String email, String DOB, String gender, String country, String preferredCurrency) {
+    public User(Long userID, String firstName, String lastName, String email, String password, String gender, String country, String preferredCurrency) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.DOB = DOB;
+        this.password = password;
         this.gender = gender;
         this.country = country;
         this.preferredCurrency = preferredCurrency;
@@ -54,8 +54,8 @@ public class User {
         return email;
     }
 
-    public String getDOB() {
-        return DOB;
+    public String getpassword() {
+        return password;
     }
 
     public String getGender() {
@@ -82,8 +82,8 @@ public class User {
         this.email = email;
     }
 
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
+    public void setpassword(String password) {
+        this.password = password;
     }
 
     public void setGender(String gender) {
