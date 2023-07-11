@@ -57,48 +57,38 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/users/{id}/friends")
-    public Friend getFriends(@PathVariable("id") Long id) {
-        // requires authentication
-        try {
-            return userService.getFriends(id);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
-
-    @PostMapping(path = "/users/friends/add")
-    public void addFriend(@RequestBody FriendInput friend){
-        // US-15 Add Friends
-        // requires authentication
-        try {
-            userService.addFriend(friend);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
-    @PostMapping(path = "/users/{id}/friends/remove")
-    public void removeFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
-        // US-16 Remove Friends
-        // requires authentication
-        try {
-            userService.removeFriend(id, friendId);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
-
-
-//    @GetMapping(path = "/users/{id}/transactions")
-//    public List<Transaction> getTxHistory(@PathVariable("id") Long id) {
-//        // US-07 My Transaction History
+//    @GetMapping(path = "/users/{id}/friends")
+//    public Friend getFriends(@PathVariable("id") Long id) {
 //        // requires authentication
 //        try {
-//            return userService.getTxHistory(id);
+//            return userService.getFriends(id);
 //        } catch (IllegalArgumentException e) {
 //            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 //        }
 //    }
+//
+//    @PostMapping(path = "/users/friends/add")
+//    public void addFriend(@RequestBody FriendInput friend){
+//        // US-15 Add Friends
+//        // requires authentication
+//        try {
+//            userService.addFriend(friend);
+//        } catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
+//    @PostMapping(path = "/users/{id}/friends/remove")
+//    public void removeFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
+//        // US-16 Remove Friends
+//        // requires authentication
+//        try {
+//            userService.removeFriend(id, friendId);
+//        } catch (IllegalArgumentException e) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+//        }
+//    }
+
+
 
 
 

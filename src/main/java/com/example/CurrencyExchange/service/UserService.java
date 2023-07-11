@@ -41,28 +41,19 @@ public class UserService {
     }
 
 
-    public Friend getFriends(Long userID){
+//    public Friend getFriends(Long userID){
 //        return friendRepository.findByUserID(userID);
-        return friendRepository.findByUserID(userID);
-    }
-
-
-    public Friend addFriend(FriendInput friend){
-        Friend newFriend = friend.toNewFriend();
-        friendRepository.save(newFriend);
-        return newFriend;
-    }
-
-
-
-    public void removeFriend(Long userID, Long friendID){
-        friendRepository.deleteByUserIDAndFriendID(userID, friendID);
-    }
-
-//    private boolean isValid(Friend newFriend) {
-//        return Objects.nonNull(newFriend)
-//                && Objects.nonNull(newFriend.)
-//                && Objects.nonNull(newFriend.getText())
-//                && Objects.nonNull(newFriend.getAuthor());
 //    }
+//
+//
+//    public Friend addFriend(FriendInput friend){
+//        Friend newFriend = friend.toNewFriend();
+//        friendRepository.save(newFriend);
+//        return newFriend;
+//    }
+//
+//    public void removeFriend(Long userID, Long friendID){
+//        friendRepository.deleteByUserIDAndFriendID(userID, friendID);
+//    }
+
 }
