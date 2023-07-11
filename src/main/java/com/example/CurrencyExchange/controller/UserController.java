@@ -47,12 +47,12 @@ public class UserController {
     }
 
     @GetMapping(path = "/users", params = "username")
-    public List<User> getUserByUsername(@RequestParam("username") String username) {
-        List<User> users = userService.getUserByUsername(username);
-        if (Objects.isNull(users)) {
+    public User getUserByUsername(@RequestParam("username") String username) {
+        User user = userService.getUserByUsername(username);
+        if (Objects.isNull(user)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return users;
+        return user;
     }
 
     @PostMapping(path = "/users/{id}/delete")

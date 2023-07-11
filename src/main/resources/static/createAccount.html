@@ -7,6 +7,9 @@
 <body>
 <h1>Create Account</h1>
 <div id="input">
+  <label for="usernameInput">Username:</label>
+  <input id="usernameInput" name="username" type="text"><br>
+  <br>
   <label for="firstNameInput">First Name:</label>
   <input id="firstNameInput" name="firstName" type="text"><br>
   <br>
@@ -32,6 +35,7 @@
 <script type="text/javascript">
   function clickSendButton() {
     const newUser = {};
+    newUser.username = document.getElementById("usernameInput").value;
     newUser.firstName = document.getElementById("firstNameInput").value;
     newUser.lastName = document.getElementById("lastNameInput").value;
     newUser.email = document.getElementById("emailInput").value;
