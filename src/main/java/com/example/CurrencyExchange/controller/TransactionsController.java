@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -128,7 +129,7 @@ public class TransactionsController {
     }
 
     @PostMapping(path = "/transaction")
-    public void insertUser(@RequestBody TransactionInput newTransaction) {
+    public void inserTransaction(@RequestBody TransactionInput newTransaction) {
         try {
             transactionServices.insertTransaction(newTransaction);
         } catch (IllegalArgumentException e) {
@@ -136,10 +137,24 @@ public class TransactionsController {
         }
     }
 
+    @GetMapping(path = "/transaction/findseller/{from}/{to}")
+    public List<Long> getSellresByCurrencies(@PathVariable String from, @PathVariable String to)
+    {
+        List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(from, to);
+        System.out.println(temp.toString());
+        List<Long> sellers = new ArrayList<>();
+        for (Transaction transaction: temp)
+            if (transaction.isApproved())
+                sellers.add(transaction.getSellerID());
+        return sellers;
+    }
+
     @GetMapping(path = "/transaction/{ID}/id")
     public Transaction findTransactionByID(@PathVariable Long ID)
     {
         return transactionRepository.findByTransactionID(ID);
     }
+
+
 
 }
