@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XCurrency - Currencies</title>
+</head>
+<body>
+<h1>XCurrency - Search for Avaliable Currencies</h1>
+<div id="data">No Entry Available</div>
+<script type="text/javascript">
+    function showCurrencies(data) {
+        const dataDiv = document.getElementById('data');
+        dataDiv.innerHTML = '<ul>';
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const value = data[key];
+                dataDiv.innerHTML += `<li>${key} : ${value}</li>`;
+            }
+        }
+        dataDiv.innerHTML += '</ul>';
+    }
+
+    fetch("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json")
+        .then(resp => resp.json())
+        .then(data => showCurrencies(data))
+        .catch(function (error) {
+            console.error(error);
+        });
+</script>
+</body>
+</html>

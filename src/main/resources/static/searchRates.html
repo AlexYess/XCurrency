@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XCurrency - Currencies</title>
+</head>
+<body>
+<h1>XCurrency - View Currency Rates</h1>
+<div id="inputData">
+    <label for="currencyNameInput1">Currency From:</label>
+    <input id="currencyNameInput1" name="currency1" type="text"/>
+    <label for="currencyNameInput2">Currency To:</label>
+    <input id="currencyNameInput2" name="currency2" type="text"/>
+</div>
+<div id="answer"></div> <div id="sendButtonDiv">
+    <input type="button" value="Search" onclick="clickCreateButton()"/>
+</div>
+<div id="data">
+    Currencies Not Found
+</div>
+
+<script type="text/javascript">
+    function clickCreateButton(data) {
+        const currency1 = document.getElementById('currencyNameInput1');
+        const currency2 = document.getElementById('currencyNameInput2');
+        const dataDiv = document.getElementById('data')
+        dataDiv.innerHTML = '<p>Rate from ' + currency1 + ' to ' + currency2 + ' : ' + data + '</p>';
+    }
+
+    fetch("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency1}/${currency2}.json")
+        .then(resp => resp.json())
+        .then(data => showCurrencies(data))
+        .catch(function (error) {
+            console.error(error);
+        });
+    // function getRate(data) {
+    //     const rawResponse = fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${responseData.currency1.toLowerCase()}/${responseData.currency2.toLowerCase()}.json', {
+    //         method: 'GET', headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json' },
+    //         body: JSON.stringify(data) })
+    //         .then(res => res.json())
+    //         .then(responseData => {
+    //             window.location.replace(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${responseData.currency1.toLowerCase()}/${responseData.currency2.toLowerCase()}.json`); })
+    //         .catch(error => {
+    //             let answerDiv = document.getElementById('answer'); answerDiv.innerHTML = `Error: ${error}`;
+    //         }) }
+    // function clickCreateButton() {
+    //     const currencyDetails = {};
+    //     currencyDetails.currency1 = document.getElementById("currencyNameInput2").value;
+    //     currencyDetails.currency2 = document.getElementById("currencyNameInput2").value;
+    //     getRate(currencyDetails);}
+</script>
+</body>
+</html>
