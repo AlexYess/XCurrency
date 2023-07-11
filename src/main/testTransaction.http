@@ -1,0 +1,61 @@
+
+###
+POST http://localhost:8080/transaction
+Content-Type: application/json
+
+{
+  "transactionID": 1,
+  "sellerID": 22,
+  "buyerID": 33,
+  "currencyCodeFrom": "eur",
+  "currencyCodeTo": "rub",
+  "rate": 0.0,
+  "amount": 10.0,
+  "expiryDate": "2023-07-10",
+  "isApproved": true
+}
+
+<> 2023-07-11T114649.500.json
+<> 2023-07-11T114109.500.json
+<> 2023-07-11T114030-1.500.json
+<> 2023-07-11T114015.500.json
+
+###
+POST http://localhost:8080/transaction
+Content-Type: application/json
+
+{
+  "transactionID": 2,
+  "sellerID": 33,
+  "buyerID": 44,
+  "currencyCodeFrom": "eur",
+  "currencyCodeTo": "rub",
+  "rate": 0.0,
+  "amount": 10.0,
+  "expiryDate": "2023-07-10",
+  "isApproved": true
+}
+
+###
+GET http://localhost:8080/transaction/2023-07-10/expdate
+
+<> 2023-07-11T120355.200.json
+<> 2023-07-11T120337.200.json
+<> 2023-07-11T115708.200.json
+<> 2023-07-11T115346.200.json
+<> 2023-07-11T115103.200.json
+<> 2023-07-11T114913.200.json
+<> 2023-07-11T114836.200.json
+<> 2023-07-11T114649.200.json
+<> 2023-07-11T114109.200.json
+<> 2023-07-11T114030.200.json
+<> 2023-07-11T114015.200.json
+
+
+###
+GET http://localhost:8080/transaction/1/id
+
+<> 2023-07-11T120355.404.json
+<> 2023-07-11T120337.404.json
+<> 2023-07-11T120254.404.json
+<> 2023-07-11T115708.404.json
