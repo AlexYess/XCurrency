@@ -5,6 +5,7 @@
 
 package com.example.CurrencyExchange.service;
 
+import com.example.CurrencyExchange.dto.TransactionInput;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,17 @@ import java.util.Optional;
 @Service
 public class TransactionServices {
     private TransactionRepository transactionRepository;
+
+    public TransactionServices(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
+    public Transaction insertTransaction(TransactionInput transactionInput)
+    {
+        Transaction newTransaction = transactionInput.toNewTransaction();
+        transactionRepository.save(newTransaction);
+        return newTransaction;
+    }
 
 //    TransactionServices(TransactionRepository transactionRepository)
 //    {
