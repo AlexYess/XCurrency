@@ -9,19 +9,15 @@ import com.example.CurrencyExchange.model.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TransactionServices {
-    private List<Transaction> transactionList = new ArrayList<>();
 
     public Optional<Transaction> getTransactionByID(Long ID)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/my_db", "my_db_user", "passw0rd");
             String sql = "SELECT * FROM TRANSACTION WHERE TRANSACTIONID = " + ID.toString();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -97,44 +93,44 @@ public class TransactionServices {
         }
     }
 
-    public void changeExpiryDateByID(Long ID, String exp_date)
-    {
-        for (Transaction transaction: transactionList)
-            if (transaction.getTransactionID().equals(ID))
-            {
-                transaction.setExpiryDate(LocalDate.parse(exp_date));
-                break;
-            }
-    }
+//    public void changeExpiryDateByID(Long ID, String exp_date)
+//    {
+//        for (Transaction transaction: transactionList)
+//            if (transaction.getTransactionID().equals(ID))
+//            {
+//                transaction.setExpiryDate(LocalDate.parse(exp_date));
+//                break;
+//            }
+//    }
 
-    public void transactionExpiry()
-    {
-        LocalDate current = LocalDate.now();
-        for (Transaction transaction: transactionList)
-        {
-            if (transaction.getExpiryDate().isBefore(current.minusWeeks(2)))
-            {
-                transaction.setApproved(false);
-            }
-        }
+//    public void transactionExpiry()
+//    {
+//        LocalDate current = LocalDate.now();
+//        for (Transaction transaction: transactionList)
+//        {
+//            if (transaction.getExpiryDate().isBefore(current.minusWeeks(2)))
+//            {
+//                transaction.setApproved(false);
+//            }
+//        }
+//
+//    }
 
-    }
+//    public void rateUpdaterById(Long ID)
+//    {
+//        for (Transaction transaction: transactionList)
+//            if (transaction.getTransactionID().equals(ID))
+//            {
+//                transaction.setRate();
+//            }
+//    }
 
-    public void rateUpdaterById(Long ID)
-    {
-        for (Transaction transaction: transactionList)
-            if (transaction.getTransactionID().equals(ID))
-            {
-                transaction.setRate();
-            }
-    }
-
-    public void rateUpdaterAll()
-    {
-        for (Transaction transaction: transactionList)
-        {
-            transaction.setRate();
-        }
-    }
+//    public void rateUpdaterAll()
+//    {
+//        for (Transaction transaction: transactionList)
+//        {
+//            transaction.setRate();
+//        }
+//    }
 
 }
