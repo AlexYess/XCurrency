@@ -13,8 +13,7 @@ public class Friends {
     private Long id;
     @ManyToOne
     @JsonBackReference
-    User userID;
-
+    User user;
     private Long friendID;
     private String date;
 
