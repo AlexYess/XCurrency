@@ -77,11 +77,7 @@ public class TransactionsController {
     @GetMapping(path = "/transaction/{ID}/clients/seller")
     public Optional<Long> getSeller(@PathVariable("ID") Long sellerID)
     {
-        if (transactionServices.getTransactionByID(sellerID).isEmpty()) {
-            throw new IllegalArgumentException("No transaction found");
-        }
-        updateCurrencyRate(sellerID);
-        return Optional.of(transactionServices.getSellerByID(sellerID).get());
+        return transactionServices.getSellerByID(sellerID);
     }
 
 

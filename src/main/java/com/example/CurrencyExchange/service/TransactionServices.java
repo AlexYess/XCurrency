@@ -20,10 +20,27 @@ public class TransactionServices {
 
     public Optional<Transaction> getTransactionByID(Long ID)
     {
-        for (Transaction transaction: transactionList)
-            if (transaction.getTransactionID().equals(ID))
-                return Optional.of(transaction);
-        return Optional.empty();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
+            String sql = "SELECT * FROM TRANSACTION WHERE TRANSACTIONID = " + ID.toString();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            Transaction transaction = new Transaction(
+                    resultSet.getLong("TRANSACTIONID"),
+                    resultSet.getLong("SELLERID"),
+                    resultSet.getLong("BUYERID"),
+                    resultSet.getString("CURRENCY_CODE_FROM"),
+                    resultSet.getString("CURRENCY_CODE_TO"),
+                    resultSet.getFloat("RATE"),
+                    resultSet.getFloat("AMOUNT"),
+                    resultSet.getDate("EXPIRY_DATE").toLocalDate(),
+                    resultSet.getBoolean("IS_APPROVED")
+                    );
+            return Optional.of(transaction);//may be mistace
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    public void testingShit()
@@ -60,7 +77,17 @@ public class TransactionServices {
 
     public Optional<Long> getSellerByID(Long ID)
     {
-        return Optional.empty();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
+            String sql = "SELECT SELLERID FROM TRANSACTION WHERE TRANSACTIONID = " + ID.toString();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            System.out.println(resultSet);
+            resultSet.next();
+            return Optional.of(resultSet.getLong("SELLERID"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
