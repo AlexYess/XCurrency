@@ -37,42 +37,12 @@ public class TransactionServices {
                     resultSet.getDate("EXPIRY_DATE").toLocalDate(),
                     resultSet.getBoolean("IS_APPROVED")
                     );
-            return Optional.of(transaction);//may be mistace
+            return Optional.of(transaction);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-//    public void testingShit()
-//    {
-//        try {
-//            // Установка соединения с базой данных H2
-//            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
-//
-//            // Создание SQL-запроса
-//            String sql = "SELECT * FROM TRANSACTION";
-//
-//            // Создание объекта Statement для выполнения запроса
-//            Statement statement = connection.createStatement();
-//
-//            // Выполнение запроса и получение результирующего набора данных
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            // Обработка результирующего набора данных
-//            while (resultSet.next()) {
-//                // Получение значений полей из результирующего набора
-//                int id = resultSet.getInt("TRANSACTIONID");
-//
-//                // Делайте что-то с полученными данными
-//                System.out.println("ID: " + id);
-//            }
-//            // Закрытие результирующего набора, Statement и соединения
-//            resultSet.close();
-//            statement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
     public Optional<Long> getSellerByID(Long ID)
@@ -93,22 +63,38 @@ public class TransactionServices {
 
     public Optional<Long> getBuyerByID(Long ID)
     {
-        for (Transaction transaction: transactionList)
-        {
-            if (transaction.getTransactionID().equals(ID))
-                return Optional.of(transaction.getBuyerID());
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password");
+            String sql = "SELECT BUYERID FROM TRANSACTION WHERE TRANSACTIONID = " + ID.toString();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            System.out.println(resultSet);
+            resultSet.next();
+            return Optional.of(resultSet.getLong("BUYERID"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 
     public void approveTransactionByID(Long ID, boolean approvement)
     {
-        for (Transaction transaction: transactionList)
-            if (transaction.getTransactionID().equals(ID))
-            {
-                transaction.setApproved(approvement);
-                break;
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:file:./main_db", "sa", "password")) {
+            String updateQuery = "UPDATE TRANSACTION SET IS_APPROVED = ? WHERE TRANSACTIONID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+                statement.setBoolean(1, approvement);
+                statement.setLong(2, ID);
+                int rowsAffected = statement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Data updated successfully.");
+                } else {
+                    System.out.println("No rows were updated.");
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeExpiryDateByID(Long ID, String exp_date)
@@ -120,8 +106,6 @@ public class TransactionServices {
                 break;
             }
     }
-
-    // set approvment status to false if past exp date
 
     public void transactionExpiry()
     {

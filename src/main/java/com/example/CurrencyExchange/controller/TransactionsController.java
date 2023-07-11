@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -35,23 +36,17 @@ public class TransactionsController {
 
     @GetMapping(path = "/transaction/{ID}")
     public Optional<Transaction> GetTransactionId(@PathVariable("ID") Long transactionID) {
-        if (transactionServices.getTransactionByID(transactionID).isEmpty()) {
-            throw new IllegalArgumentException("No transaction found");
-        }
-        updateCurrencyRate(transactionID);
-        return Optional.of(transactionServices.getTransactionByID(transactionID).get());
+        return transactionServices.getTransactionByID(transactionID);
     }
 
-    @PostMapping(path = "/transaction/{ID}/confirmation")
-    public void approveTransaction(@PathVariable("ID") Long confimationID, boolean confirmation)
-    {
-        try {
-            transactionServices.approveTransactionByID(confimationID, confirmation);
-        }
-        catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    @PostMapping(path = "/transaction/{transactionId}/confirmation")
+    public void confirmTransaction(@PathVariable("transactionId") Long transactionId, @RequestBody Map<String, Object> request) {
+        boolean isApproved = (boolean) request.get("isApproved"); // Получаем значение isApproved из запроса
+
+        // Выполняем обновление значения в базе данных
+        transactionServices.approveTransactionByID(transactionId, isApproved);
     }
+
 
     @PostMapping(path = "/transaction/{ID}/expdate")
     public void changeExpiryDate(@PathVariable("ID") Long expdateID, String date)
