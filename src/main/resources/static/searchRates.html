@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<h1>XCurrency - View Currency Rates</h1>
+<h1>XCurrency</h1>
+<h2>View Currency Rates</h2>
 <div id="inputData">
     <label for="currencyNameInput1">Currency From:</label>
     <input id="currencyNameInput1" name="currency1" type="text"/><br>
     <label for="currencyNameInput2">Currency To:</label>
-    <input id="currencyNameInput2" name="currency2" type="text"/><br>
-</div>
+    <input id="currencyNameInput2" name="currency2" type="text"/>
+</div><br>
 <div id="answer"></div>
-<div id="sendButtonDiv">
+<div id="sendButtonDiv" style="padding-top: 25px">
     <input type="button" value="Search" onclick="clickCreateButton()"/><br>
 </div>
 <div id="data"></div>
@@ -40,6 +41,9 @@
             const currencyPair = `${document.getElementById('currencyNameInput1').value.toUpperCase()}/${keys[1].toUpperCase()}`; // Format the currency pair
             const exchangeRate = data[keys[1]]; // Get the value of the second key
             dataDiv.innerHTML = `<p style="color: green; font-size: 30px; font-weight: bolder">${currencyPair}: ${exchangeRate}</p>`;
+            dataDiv.innerHTML += '<div id="buyButtonDiv" style="padding-top: 5px">\n' +
+                '    <input type="button" value="Buy" onclick="buyCurrency()"/><br>\n' +
+                '</div>'
         } else {
             dataDiv.innerHTML = "Invalid API response";
         }
