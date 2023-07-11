@@ -1,11 +1,9 @@
 package com.example.CurrencyExchange.controller;
 
 import com.example.CurrencyExchange.dto.TransactionInput;
-import com.example.CurrencyExchange.dto.UserInput;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.repository.TransactionRepository;
 import com.example.CurrencyExchange.service.TransactionServices;
-import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +12,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
@@ -137,15 +134,27 @@ public class TransactionsController {
         }
     }
 
-    @GetMapping(path = "/transaction/findseller/{from}/{to}")
-    public List<Long> getSellresByCurrencies(@PathVariable String from, @PathVariable String to)
+    @GetMapping(path = "/transaction/findseller/{curfrom}/{curto}")
+    public List<Long> getSellresByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
     {
-        List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(from, to);
+        List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(curfrom, curto);
         System.out.println(temp.toString());
         List<Long> sellers = new ArrayList<>();
         for (Transaction transaction: temp)
-            if (transaction.isApproved())
+            if (!transaction.isApproved())
                 sellers.add(transaction.getSellerID());
+        return sellers;
+    }
+
+    @GetMapping(path = "/transaction/findbuyer/{curfrom}/{curto}")
+    public List<Long> getBuyersByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
+    {
+        List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(curfrom, curto);
+        System.out.println(temp.toString());
+        List<Long> sellers = new ArrayList<>();
+        for (Transaction transaction: temp)
+            if (!transaction.isApproved())
+                sellers.add(transaction.getBuyerID());
         return sellers;
     }
 
@@ -155,6 +164,31 @@ public class TransactionsController {
         return transactionRepository.findByTransactionID(ID);
     }
 
+    @GetMapping(path = "/transaction/fintx/seller/{ID}")
+    public List<Transaction> findFinishedTransactionsBySellersID(@PathVariable Long ID)
+    {
+        return transactionRepository.findAllBySellerID(ID);
+    }
 
 
+    @GetMapping(path = "/transaction/fintx/buyer/{ID}")
+    public List<Transaction> findFinishedTransactionsByBuyersID(@PathVariable Long ID)
+    {
+        return transactionRepository.findAllByBuyerID(ID);
+    }
+
+    @PostMapping(path = "/transaction/set/buyer/{ID}")
+    public void setBuyer(@PathVariable Long ID, @RequestBody Map<String, Object> request)
+    {
+        Integer temp = (Integer) request.get("buyerID");
+        Long buyerID = Long.valueOf(temp);
+        transactionServices.setBuyerByID(ID, buyerID);
+    }
+
+    @PostMapping(path = "/transaction/set/seller/{ID}")
+    public void setSeller(@PathVariable Long ID, @RequestBody Map<String, Object> request)
+    {
+        Long sellerID = Long.valueOf((Integer) request.get("sellerID"));
+        transactionServices.setSellerByID(ID, sellerID);
+    }
 }
