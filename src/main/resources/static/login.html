@@ -26,13 +26,12 @@
         fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
             .then(res => res.json())
             .then(data => {
-                sessionStorage.setItem("user", JSON.stringify(data));
-                // sessionStorage.setItem("user", data);
-            return data;})
-            .catch(error => {
-                console.error(error);
+                sessionStorage.setItem("user", JSON.stringify(data))
+            return data;
             })
-        window.location.replace(`/home.html`)
+            .then(a => window.location.replace(`/home.html`))
+            .catch(error => {console.error(error);})
+
   }
 
 </script>
