@@ -41,6 +41,12 @@ clickSellCurrencyButton()"/><br>
 // window.location.replace(`/transactionBuy.html`)
 }
 clickBuyCurrencyButton()"/><br>
+<br>
+<input type="button" value="Logout" onclick="function clickLogoutButton() {
+    sessionStorage.clear();
+    window.location.replace(`/login.html`)
+}
+clickLogoutButton()"/><br>
 <div id="myTx">
     <h2>My Transactions</h2>
 </div>
