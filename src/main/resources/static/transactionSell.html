@@ -6,6 +6,16 @@
   <title>XCurrency - Currencies</title>
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   <link href="transactionSell.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
+    function showPrice(){
+      const curFrom = document.getElementById("curFromID").value().toLowerCase();
+      const curTo = document.getElementById("curToID").value().toLowerCase();
+      const amount = document.getElementById("amountInput").value;
+      fetch("/currencies/"+curFrom+"/"+curTo, {method: 'GET', headers: {'Accept': 'application/json'},})
+              .then(res => res.json())
+              .then()
+    }
+  </script>
 </head>
 <body>
 <h1>XCurrency</h1>
@@ -21,7 +31,7 @@
   </div>
   <div class="grid-item">Amount:</div>
   <div class="grid-item">
-    <input id="amountIputp" name="amount" type="text" class="input">
+    <input id="amountInput" name="amount" type="text" class="input">
   </div>
   <div class="grid-item">
     <p id="priceOutp">123</p>
