@@ -47,7 +47,7 @@ public class TransactionsController {
         return transactionRepository.findAllByExpiryDate(expdate);
     }
 
-    // Add transaction to data base
+    // Add transaction to database
     @PostMapping(path = "/transaction")
     public void inserTransaction(@RequestBody TransactionInput newTransaction) {
         try {
