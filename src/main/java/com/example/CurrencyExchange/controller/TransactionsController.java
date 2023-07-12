@@ -4,7 +4,11 @@ import com.example.CurrencyExchange.dto.TransactionInput;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.repository.TransactionRepository;
 import com.example.CurrencyExchange.service.TransactionServices;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import io.swagger.v3.core.util.Json;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,6 +19,7 @@ import java.util.Map;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:63342")
 public class TransactionsController {
 
     private final TransactionServices transactionServices;
@@ -59,14 +64,14 @@ public class TransactionsController {
 
     // Get all sellers IDs by currency
     @GetMapping(path = "/transaction/findseller/{curfrom}/{curto}")
-    public List<Long> getSellresByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
+    public List<Transaction> getSellresByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
     {
         List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(curfrom, curto);
-        System.out.println(temp.toString());
-        List<Long> sellers = new ArrayList<>();
+
+        List<Transaction> sellers = new ArrayList<>();
         for (Transaction transaction: temp)
-            if (transaction.isApproved())
-                sellers.add(transaction.getSellerID());
+            if ((!transaction.isApproved()) && (transaction.getBuyerID().equals(0L)))
+                sellers.add(transaction);
         return sellers;
     }
 

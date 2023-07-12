@@ -12,8 +12,11 @@
     text-align: center;
 }
 
+.combined-columns {
+    grid-column: span 2;
+}
 
 
-.input {
+input {
     max-width: 100px
 }

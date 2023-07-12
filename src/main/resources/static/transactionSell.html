@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>XCurrency - Currencies</title>
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   <link href="transactionSell.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript">
-    function showPrice(){
-      const curFrom = document.getElementById("curFromID").value().toLowerCase();
-      const curTo = document.getElementById("curToID").value().toLowerCase();
-      const amount = document.getElementById("amountInput").value;
-      fetch("/currencies/"+curFrom+"/"+curTo, {method: 'GET', headers: {'Accept': 'application/json'},})
-              .then(res => res.json())
-              .then()
-    }
+  <script src="transactionSell.js">
   </script>
 </head>
 <body>
@@ -23,20 +15,19 @@
 <div class="grid-container">
   <div class="grid-item">From</div>
   <div class="grid-item">
-    <input id="curFromID" name="curFrom" type="text" class="input">
+    <input id="curFromID" name="curFrom" type="text">
   </div>
   <div class="grid-item">To</div>
   <div class="grid-item">
-    <input id="curToID" name="curTo" type="text" class="input">
+    <input id="curToID" name="curTo" type="text">
   </div>
   <div class="grid-item">Amount:</div>
   <div class="grid-item">
-    <input id="amountInput" name="amount" type="text" class="input">
+    <input id="amountInput" name="amount" type="text">
   </div>
-  <div class="grid-item">
-    <p id="priceOutp">123</p>
-  </div>
-  <div class="grid-item"></div>
+    <div class="grid-item combined-columns" id="outPrice"></div>
 </div>
+<button onclick="showPrice(); getSellers()">Press</button>
+<div id="data"></div>
 </body>
 </html>
