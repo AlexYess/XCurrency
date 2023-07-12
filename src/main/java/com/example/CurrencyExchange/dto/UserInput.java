@@ -9,6 +9,15 @@ import java.util.List;
 
 
 public class UserInput {
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
@@ -28,9 +37,6 @@ public class UserInput {
         return email;
     }
 
-    public String getpassword() {
-        return password;
-    }
 
     public String getCountry() {
         return country;
@@ -38,13 +44,12 @@ public class UserInput {
 
     public User toNewUser() {
         User newUser = new User();
-
+        newUser.setUsername(this.username);
         newUser.setLastName(this.lastName);
         newUser.setFirstName(this.firstName);
         newUser.setCountry(this.country);
-        newUser.setpassword(this.password);
+        newUser.setPassword(this.password);
         newUser.setEmail(this.email);
-
         return newUser;
     }
 

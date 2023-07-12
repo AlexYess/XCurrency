@@ -38,8 +38,8 @@ public class UserService {
     public User getUser(Long userID) {
         return userRepository.findByUserID(userID);
     }
-    public List<User> getUserByLastName(String name) {
-        return userRepository.findByLastName(name);
+    public User getUserByUsername(String name) {
+        return userRepository.findByUsername(name);
     }
 
     public void deleteUser(Long existingUserId){

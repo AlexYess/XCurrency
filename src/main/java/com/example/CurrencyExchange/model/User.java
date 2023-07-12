@@ -9,22 +9,38 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userID;
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String country;
 
-    //    @OneToMany(mappedBy = "user")
-//    @JsonManagedReference
-//    private List<Friend> friends = new ArrayList<>();
     public User() {
 
     }
 
 
-    public User(Long userID, String firstName, String lastName, String email, String password, String country, String preferredCurrency) {
+    public User(Long userID, String username, String firstName, String lastName, String email, String password, String country, String preferredCurrency) {
         this.userID = userID;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -48,10 +64,6 @@ public class User {
         return email;
     }
 
-    public String getpassword() {
-        return password;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -66,10 +78,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setpassword(String password) {
-        this.password = password;
     }
 
     public void setCountry(String country) {

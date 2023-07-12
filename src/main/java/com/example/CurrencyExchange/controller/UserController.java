@@ -46,13 +46,13 @@ public class UserController {
         return userWithTheGivenId;
     }
 
-    @GetMapping(path = "/users", params = "lastname")
-    public List<User> getUserByLastName(@RequestParam("lastname") String lastName) {
-        List<User> users = userService.getUserByLastName(lastName);
-        if (Objects.isNull(users)) {
+    @GetMapping(path = "/users", params = "username")
+    public User getUserByUsername(@RequestParam("username") String username) {
+        User user = userService.getUserByUsername(username);
+        if (Objects.isNull(user)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return users;
+        return user;
     }
 
     @PostMapping(path = "/users/{id}/delete")
