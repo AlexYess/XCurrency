@@ -42,7 +42,7 @@
             const exchangeRate = data[keys[1]]; // Get the value of the second key
             dataDiv.innerHTML = `<p style="color: green; font-size: 30px; font-weight: bolder">${currencyPair}: ${exchangeRate}</p>`;
             dataDiv.innerHTML += '<div id="buyButtonDiv" style="padding-top: 5px">\n' +
-                '    <input type="button" value="Buy" onclick="buyCurrency()"/><br>\n' +
+                '    <input type="button" value="Place Order" onclick="buyCurrency()"/><br>\n' +
                 '</div>'
         } else {
             dataDiv.innerHTML = "Invalid API response";
