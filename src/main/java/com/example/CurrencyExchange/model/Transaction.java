@@ -39,6 +39,8 @@ public class Transaction {
         this.isApproved = isApproved;
     }
 
+//    public Transaction()
+
     public Transaction() {
 
     }
