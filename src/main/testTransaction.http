@@ -5,20 +5,15 @@ Content-Type: application/json
 
 {
   "transactionID": 1,
-  "sellerID": 22,
-  "buyerID": 33,
+  "sellerID": 223,
+  "buyerID": 0,
   "currencyCodeFrom": "eur",
   "currencyCodeTo": "rub",
   "rate": 0.0,
   "amount": 10.0,
   "expiryDate": "2023-07-10",
-  "isApproved": true
+  "approved": true
 }
-
-<> 2023-07-11T114649.500.json
-<> 2023-07-11T114109.500.json
-<> 2023-07-11T114030-1.500.json
-<> 2023-07-11T114015.500.json
 
 ###
 POST http://localhost:8080/transaction
@@ -27,35 +22,95 @@ Content-Type: application/json
 {
   "transactionID": 2,
   "sellerID": 33,
-  "buyerID": 44,
+  "buyerID": 0,
   "currencyCodeFrom": "eur",
   "currencyCodeTo": "rub",
   "rate": 0.0,
   "amount": 10.0,
   "expiryDate": "2023-07-10",
-  "isApproved": true
+  "approved": false
 }
 
 ###
 GET http://localhost:8080/transaction/2023-07-10/expdate
 
-<> 2023-07-11T120355.200.json
-<> 2023-07-11T120337.200.json
-<> 2023-07-11T115708.200.json
-<> 2023-07-11T115346.200.json
-<> 2023-07-11T115103.200.json
-<> 2023-07-11T114913.200.json
-<> 2023-07-11T114836.200.json
-<> 2023-07-11T114649.200.json
-<> 2023-07-11T114109.200.json
-<> 2023-07-11T114030.200.json
-<> 2023-07-11T114015.200.json
+<> 2023-07-11T193111.200.json
+<> 2023-07-11T193042.200.json
+<> 2023-07-11T192335.200.json
+<> 2023-07-11T191538.200.json
 
 
 ###
 GET http://localhost:8080/transaction/1/id
 
-<> 2023-07-11T120355.404.json
-<> 2023-07-11T120337.404.json
-<> 2023-07-11T120254.404.json
-<> 2023-07-11T115708.404.json
+<> 2023-07-11T193111-1.200.json
+<> 2023-07-11T193042-1.200.json
+<> 2023-07-11T192335-1.200.json
+<> 2023-07-11T191538-1.200.json
+
+###
+GET http://localhost:8080/transaction/findseller/eur/rub
+
+<> 2023-07-11T193111-2.200.json
+<> 2023-07-11T193042-2.200.json
+<> 2023-07-11T192335-2.200.json
+<> 2023-07-11T191538-2.200.json
+
+###
+GET http://localhost:8080/transaction/fintx/seller/33
+
+<> 2023-07-11T193111-3.200.json
+<> 2023-07-11T193042-3.200.json
+<> 2023-07-11T192335-3.200.json
+<> 2023-07-11T191538-3.200.json
+
+
+###
+POST http://localhost:8080/transaction/set/buyer/1
+Content-Type: application/json
+
+{
+  "buyerID": 69
+}
+
+###
+POST http://localhost:8080/transaction/set/seller/1
+Content-Type: application/json
+
+{
+  "sellerID": 96
+}
+
+###
+GET http://localhost:8080/transaction/fintx/buyer/33
+
+<> 2023-07-11T193112.200.json
+<> 2023-07-11T193042-4.200.json
+<> 2023-07-11T192336.200.json
+<> 2023-07-11T191538-4.200.json
+<> 2023-07-11T191440-1.200.json
+<> 2023-07-11T154144.20
+
+###
+GET http://localhost:8080/transaction/2023-07-10/expdate
+
+<> 2023-07-11T193112-1.200.json
+<> 2023-07-11T193043.200.json
+<> 2023-07-11T192336-1.200.json
+<> 2023-07-11T191538-5.200.json
+<> 2023-07-11T191440-2.200.json
+
+###
+GET http://localhost:8080/transaction/user/22
+
+<> 2023-07-11T193112-2.200.json
+<> 2023-07-11T193043-1.200.json
+<> 2023-07-11T192336-2.200.json
+<> 2023-07-11T191538-6.200.json
+<> 2023-07-11T191440-3.200.json
+
+###
+GET http://localhost:8080/transaction/all
+
+<> 2023-07-11T193112-3.200.json
+<> 2023-07-11T193043.404.json

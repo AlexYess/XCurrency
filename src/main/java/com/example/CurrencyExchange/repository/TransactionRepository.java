@@ -2,7 +2,6 @@ package com.example.CurrencyExchange.repository;
 
 import com.example.CurrencyExchange.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -27,15 +26,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
 
 
 
+
     //find seller by 2 codes and if approved is false - d
     //find buyer by code (similar to the previous one) - d
     //find finished transactions by seller - d
     //find finished transactions by buyer - d
     //set sellers id - d
-    //set buyer id
-    //all transactions by user id
-    //delete a transaction but keep in history
-    //update currency rate
+    //set buyer id - d
+    //all transactions by user id - d
+    //delete a transaction but keep in history -
+    //update currency rate - half done. rate updates only on creation or updated of each transaction
 
 
 

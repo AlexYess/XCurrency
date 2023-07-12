@@ -17,15 +17,8 @@ import java.util.Map;
 @RestController
 public class TransactionsController {
 
-    private TransactionServices transactionServices;
-    private TransactionRepository transactionRepository;
-
-//    @PostConstruct
-//    public void init()
-//    {
-////        transactionServices.transactionExpiry();
-////        transactionServices.testingShit();
-//    }
+    private final TransactionServices transactionServices;
+    private final TransactionRepository transactionRepository;
 
     public TransactionsController(TransactionServices transactionService, TransactionRepository transactionRepositor) {
         this.transactionServices = transactionService;
@@ -34,7 +27,9 @@ public class TransactionsController {
     }
 
 
-//    @GetMapping(path = "/transaction/{ID}")
+
+    // do not delete. Это шпоргалка
+    //    @GetMapping(path = "/transaction/{ID}")
 //    public Optional<Transaction> GetTransactionId(@PathVariable("ID") Long transactionID) {
 //        return transactionServices.getTransactionByID(transactionID);
 //    }
@@ -191,4 +186,20 @@ public class TransactionsController {
         Long sellerID = Long.valueOf((Integer) request.get("sellerID"));
         transactionServices.setSellerByID(ID, sellerID);
     }
+
+    @GetMapping(path = "/transaction/user/{ID}")
+    public List<Transaction> getAllTransactionsByUserID(@PathVariable Long ID)
+    {
+        List<Transaction> result = new ArrayList<>();
+        result.addAll(transactionRepository.findAllBySellerID(ID));
+        result.addAll(transactionRepository.findAllByBuyerID(ID));
+        return result;
+    }
+
+    @GetMapping(path = "/transaction/all")
+    public List<Transaction> getAllTransactions()
+    {
+        return transactionRepository.findAll();
+    }
+
 }
