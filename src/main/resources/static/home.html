@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Home</h1>
+<div id="userInfo"></div>
+<input type="button" value="View Currencies" onclick="clickViewCurrenciesButton()"/><br>
+
+<script type="text/javascript">
+    username = sessionStorage.getItem("currentloggedin");
+    console.log(`username = ${username}`);
+    fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
+        .then(res => res.json())
+        .then(data => showUserInfo(data))
+        .catch(error => {
+            console.error(error);
+        })
+    function showUserInfo(data) {
+        const userInfoDiv = document.getElementById("userInfo");
+        const keys = Object.keys(data);
+        if (keys.length > 0) {
+            userInfoDiv.innerHTML = '<ul>';
+            userInfoDiv.innerHTML += `<br>User ID: ${data[keys[0]]}`;
+            userInfoDiv.innerHTML += `<br>Username: ${data[keys[1]]}`;
+            userInfoDiv.innerHTML += `<br>First Name: ${data[keys[2]]}`;
+            userInfoDiv.innerHTML += `<br>Last Name: ${data[keys[3]]}`;
+            userInfoDiv.innerHTML += `<br>Email Address: ${data[keys[4]]}`;
+            userInfoDiv.innerHTML += `<br>Country: ${data[keys[6]]}`;
+            userInfoDiv.innerHTML += '</ul>';
+        }
+    }
+</script>
+
+</body>
+</html>

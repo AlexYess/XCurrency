@@ -19,12 +19,16 @@
   <input type="button" value="Login" onclick="clickLoginButton()"/><br>
 </div>
 <script type="text/javascript">
-  function clickLoginButton() {
-      const username = document.getElementById("usernameInput").value;
-      sendData(username);
+
+    function clickLoginButton() {
+        const username = document.getElementById("usernameInput").value;
+        const password = document.getElementById("passwordInput").value;
+        sessionStorage.setItem("currentloggedin",username);
+        sendData(username);
   }
 
   function sendData(username) {
+
     const rawResponse = fetch('/users?username='+username, {
       method: 'GET', headers: {
         'Accept': 'application/json'},})
@@ -32,7 +36,7 @@
             .then(resp => {console.log(resp);
               return resp;
             })
-            .then(responseData => {window.location.replace(`/users?id=` + responseData.userID)
+            .then(responseData => {window.location.replace(`/home.html`)
             })
 
             .catch(error => {
