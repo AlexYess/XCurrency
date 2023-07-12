@@ -27,6 +27,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
 
 
 
+
     //find seller by 2 codes and if approved is false - d
     //find buyer by code (similar to the previous one) - d
     //find finished transactions by seller - d
