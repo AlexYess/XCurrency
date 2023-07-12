@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+</head>
+<body>
+<h1>Create Account</h1>
+<div id="input">
+  <label for="usernameInput">Username:</label>
+  <input id="usernameInput" name="username" type="text"><br>
+  <br>
+  <label for="firstNameInput">First Name:</label>
+  <input id="firstNameInput" name="firstName" type="text"><br>
+  <br>
+  <label for="lastNameInput">Last Name:</label>
+  <input id="lastNameInput" name="lastName" type="text"><br>
+  <br>
+  <label for="passwordInput">Password:</label>
+  <input id="passwordInput" name="password" type="text"><br>
+  <br>
+  <label for="emailInput">Email:</label>
+  <input id="emailInput" name="email" type="text"><br>
+  <br>
+  <label for="countryInput">Country/Region:</label>
+  <input id="countryInput" name="country" type="text"><br>
+  <br>
+</div>
+<div id="answer"></div>
+<div id="sendButtonDiv">
+  <input type="button" value="Send" onclick="clickSendButton()"/><br>
+</div>
+
+
+<script type="text/javascript">
+  function clickSendButton() {
+    const newUser = {};
+    newUser.username = document.getElementById("usernameInput").value;
+    newUser.firstName = document.getElementById("firstNameInput").value;
+    newUser.lastName = document.getElementById("lastNameInput").value;
+    newUser.email = document.getElementById("emailInput").value;
+    newUser.country = document.getElementById("countryInput").value.toLowerCase();
+    newUser.password = document.getElementById("passwordInput").value;
+    console.log(newUser);
+    sendData(newUser);
+  }
+
+  function sendData(data) {
+    const rawResponse = fetch('/users', {
+      method: 'POST', headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' },
+      body: JSON.stringify(data) })
+            .then(res => res.json())
+            .then(resp => {console.log(resp);
+                  return resp;
+            })
+            .then(responseData => {window.location.replace(`/users?id=` + responseData.userID)
+            })
+
+            .catch(error => {
+              let answerDiv = document.getElementById('answer'); answerDiv.innerHTML = `Error: ${error}`;
+            }) }
+</script>
+</body>
+</html>

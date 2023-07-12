@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<div id="input">
+  <label for="usernameInput">Username:</label>
+  <input id="usernameInput" name="username" type="text"><br>
+  <br>
+  <label for="passwordInput">Password:</label>
+  <input id="passwordInput" name="password" type="text"><br>
+  <br>
+</div>
+<div id="answer"></div>
+<div id="sendButtonDiv">
+  <input type="button" value="Login" onclick="clickLoginButton()"/><br>
+</div>
+<script type="text/javascript">
+
+    function clickLoginButton() {
+        const username = document.getElementById("usernameInput").value;
+        const password = document.getElementById("passwordInput").value;
+        fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
+            .then(res => res.json())
+            .then(data => {
+                sessionStorage.setItem("user", JSON.stringify(data));
+                // sessionStorage.setItem("user", data);
+            return data;})
+            .catch(error => {
+                console.error(error);
+            })
+        window.location.replace(`/home.html`)
+  }
+
+</script>
+</body>
+</html>

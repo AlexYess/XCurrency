@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>XCurrency - Currencies</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+<h1>XCurrency</h1>
+<h2>View Currency Rates</h2>
+<div id="inputData">
+    <label for="currencyNameInput1">Currency From:</label>
+    <input id="currencyNameInput1" name="currency1" type="text"/><br>
+    <label for="currencyNameInput2">Currency To:</label>
+    <input id="currencyNameInput2" name="currency2" type="text"/>
+</div><br>
+<div id="answer"></div>
+<div id="sendButtonDiv" style="padding-top: 25px">
+    <input type="button" value="Search" onclick="clickCreateButton()"/><br>
+</div>
+<div id="data"></div>
+
+<script type="text/javascript">
+    function clickCreateButton() {
+        const currency1 = document.getElementById('currencyNameInput1').value.toLowerCase();
+        const currency2 = document.getElementById('currencyNameInput2').value.toLowerCase();
+
+        fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency1}/${currency2}.json`)
+            .then(resp => resp.json())
+            .then(data => showCurrencies(data))
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+
+    function showCurrencies(data) {
+        const dataDiv = document.getElementById('data');
+        const keys = Object.keys(data); // Get the keys of the JSON object
+        if (keys.length > 0) {
+            const currencyPair = `${document.getElementById('currencyNameInput1').value.toUpperCase()}/${keys[1].toUpperCase()}`; // Format the currency pair
+            const exchangeRate = data[keys[1]]; // Get the value of the second key
+            dataDiv.innerHTML = `<p style="color: green; font-size: 30px; font-weight: bolder">${currencyPair}: ${exchangeRate}</p>`;
+            dataDiv.innerHTML += '<div id="buyButtonDiv" style="padding-top: 5px">\n' +
+                '    <input type="button" value="Place Order" onclick="buyCurrency()"/><br>\n' +
+                '</div>'
+        } else {
+            dataDiv.innerHTML = "Invalid API response";
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

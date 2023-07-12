@@ -1,0 +1,5 @@
+POST http://localhost:8080/users/friends/add
+Content-Type: application/json
+
+{"userID": 1,
+"friendID": 2}

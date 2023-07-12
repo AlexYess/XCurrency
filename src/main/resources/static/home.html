@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Home</h1>
+<div id="userInfo"></div>
+<input type="button" value="View Currencies" onclick="clickViewCurrenciesButton()"/><br>
+
+<script type="text/javascript">
+    // userItem = sessionStorage.getItem("user");
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(`user = ${user}`);
+    const userInfoDiv = document.getElementById("userInfo");
+    userInfoDiv.innerHTML = '<ul>';
+    userInfoDiv.innerHTML += `<br>User ID: ${user.userID}`;
+    userInfoDiv.innerHTML += `<br>Username: ${user.username}`;
+    userInfoDiv.innerHTML += `<br>First Name: ${user.firstName}`;
+    userInfoDiv.innerHTML += `<br>Last Name: ${user.lastName}`;
+    userInfoDiv.innerHTML += `<br>Email Address: ${user.email}`;
+    userInfoDiv.innerHTML += `<br>Country: ${user.country}`;
+    userInfoDiv.innerHTML += '</ul>';
+
+    function clickViewCurrenciesButton(){
+        window.location.replace(`/viewCurrencies.html`)
+    }
+</script>
+
+</body>
+</html>

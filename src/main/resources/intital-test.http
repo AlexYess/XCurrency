@@ -1,0 +1,30 @@
+POST http://localhost:8080/currencies
+Content-Type: application/json
+
+{
+  "currencyCode" : "EUR",
+  "lastUpdatedDate": "06/07/23",
+  "price" : 0.92
+}
+
+###
+
+POST http://localhost:8080/currencies
+Content-Type: application/json
+
+{
+  "currencyCode" : "AUD",
+  "lastUpdatedDate": "07/07/23",
+  "price" : 0.67
+}
+
+###
+
+POST http://localhost:8080/currencies
+Content-Type: application/json
+
+{
+  "currencyCode" : "USD",
+  "lastUpdatedDate": "07/07/23",
+  "price" : 1
+}
