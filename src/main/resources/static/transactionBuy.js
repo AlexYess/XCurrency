@@ -41,7 +41,7 @@ function getBuyers() {
 function approveTransaction(transactionID) {
     const row = document.getElementById(transactionID);
 
-    fetch(`http://localhost:8080/transactions/approve/${transactionID}`,
+    fetch(`http://localhost:8080/transaction/approve/${transactionID}`,
         { method: 'GET', headers: {} })
         .catch(error => {
             console.error('Ошибка:', error);

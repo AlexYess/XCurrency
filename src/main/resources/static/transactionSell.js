@@ -69,16 +69,6 @@ function getSellers() {
         });
 }
 
-function approveTransaction(transactionID) {
-    const row = document.getElementById(transactionID);
-
-    fetch(`http://localhost:8080/transactions/approve/${transactionID}`,
-        { method: 'GET', headers: {} })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-    row.color = 'green';
-}
 
 function addTransactionS()
 {
