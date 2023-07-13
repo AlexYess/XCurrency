@@ -44,8 +44,6 @@ function getSellers()
         .then(response => response.json())
         .then(dataList => {
             let html = '';
-            console.log(dataList[0].toString());
-            console.log(dataList[1].toString());
             dataList.forEach(data => {
                 const { sellerID, rate, amount, price } = data;
                 html += `<p>Seller ID: ${sellerID}</p>`;
