@@ -48,3 +48,8 @@ function approveTransaction(transactionID) {
         });
     row.color = 'green';
 }
+
+function addTransaction()
+{
+
+}
