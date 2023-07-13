@@ -76,9 +76,9 @@ function showCurrencies(data) {
         const currencyPair = `${document.getElementById('currencyNameInput1').value.toUpperCase()}/${keys[1].toUpperCase()}`; // Format the currency pair
         const exchangeRate = data[keys[1]]; // Get the value of the second key
         dataDiv.innerHTML = `<p style="color: green; font-size: 30px; font-weight: bolder">${currencyPair}: ${exchangeRate}</p>`;
-        dataDiv.innerHTML += '<div id="buyButtonDiv" style="padding-top: 5px">\n' +
-            '    <input type="button" value="Place Order" onclick="openForm()"/><br>\n' +
-            '</div>'
+        // dataDiv.innerHTML += '<div id="buyButtonDiv" style="padding-top: 5px">\n' +
+        //     '    <input type="button" value="Place Order" onclick="openForm()"/><br>\n' +
+        //     '</div>'
     } else {
         dataDiv.innerHTML = "Invalid API response";
     }
