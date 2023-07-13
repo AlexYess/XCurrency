@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>CurrencyExchange</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>currency-exchange</artifactId>
+	<version>latest</version>
 	<name>CurrencyExchange</name>
 	<description>su-2023 project</description>
 	<properties>
@@ -18,7 +18,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
