@@ -119,20 +119,17 @@
                 html += '<td>' + elem.amount + '</td>';
                 html += '<td>' + elem.price + '</td>';
                 html += '<td>' + elem.expiryDate + '</td>';
-                // html += '<td>' + elem.approved + '</td>';
-                // const txID = elem.transactionID;
-                // const tmp = "this.disabled=true;";
-                // console.log(elem.approved);
-                if(!elem.approved) {
-                    const tmp = "approveTransaction(" + elem.transactionID.toString() + "); ";
-                    html += '<td><input type="button" value="Finalize" onclick="'+tmp+ 'this.disabled=true; window.location.reload();"'+'></td>';
-                }else{
-                    html += '<td>Finalized</td>';
-                }
 
-                // html += '<td><input type="button" id="${elem.transactionID}" value="Finalize" onclick="approveTransaction(${txID})"/></td>';
-                html += '</tr>';
+                console.log(elem.transactionID);
+                    if(!elem.approved) {
+                        const tmp = "approveTransaction(" + elem.transactionID.toString() + "); ";
+                        html += '<td><input type="button" value="Finalize" onclick="'+tmp+ 'this.disabled=true; window.location.reload();"'+'></td>';
+                    }else{
+                        html += '<td>Finalized</td>';
+                    }
+                    html += '</tr>';
             }
+
             html += '</table>';
             document.getElementById("myTx").innerHTML += html;
             return res;
