@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Account</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
 <h1>Create Account</h1>
@@ -55,7 +57,7 @@
             .then(resp => {console.log(resp);
                   return resp;
             })
-            .then(responseData => {window.location.replace(`/users?id=` + responseData.userID)
+            .then(responseData => {window.open(`/login.html`)
             })
 
             .catch(error => {

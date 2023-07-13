@@ -50,11 +50,13 @@
     window.open(`/transactionSell.html`, `_self`)
 }
 clickSellCurrencyButton()"/><br>
-<br>
+
 <input type="button" value="Buy Currency" style="background-color: green;font-weight: bolder" onclick="function clickBuyCurrencyButton() {
 
 }
 clickBuyCurrencyButton()"/><br>
+<br>
+
 <br>
 <input type="button" value="View Currencies" style="font-weight: bolder" onclick="function clickViewCurrenciesButton() {
     window.open(`/viewCurrencies.html`)
@@ -71,6 +73,16 @@ clickSearchRateButton()"/><br>
     window.location.replace(`/login.html`)
 }
 clickLogoutButton()"/><br>
+
+<div id="search user">
+    <label for="usernameInput">Username:</label>
+    <input id="usernameInput" name="username" type="text"><br>
+</div>
+<input type="button" value="Search User" style="font-weight: bolder" onclick="function clickSearchUserButton() {
+    sessionStorage.setItem(`searchUser`, document.getElementById(`usernameInput`).value);
+    window.open(`/portfolio.html`, `_self`)
+}
+clickSearchUserButton()"/><br>
 
 <script type="text/javascript">
 <!--    UserInfo-->
