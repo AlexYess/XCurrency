@@ -140,10 +140,16 @@ public class TransactionsController {
     }
 
     // нужна функция подтверждения
-    @GetMapping(path = "transactions/approve/{ID}")
+    @GetMapping(path = "transaction/approve/{ID}")
     public void approveTransaction(@PathVariable Long ID)
     {
         transactionServices.approveTransaction(ID);
+    }
+
+    @GetMapping(path = "transaction/nukethosebitches")
+    public void clearDB()
+    {
+        transactionRepository.deleteAll();
     }
 
 }
