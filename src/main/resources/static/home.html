@@ -88,7 +88,8 @@
             html += '<th>Amount</th>';
             html += '<th>Price</th>';
             html += '<th>Expiry Date</th>';
-            html += '<th>Finished</th>';
+            // html += '<th>Finished</th>';
+            html += '<th>       </th>';
             html += '</tr>';
 
             for (const elem of res) {
@@ -118,7 +119,18 @@
                 html += '<td>' + elem.amount + '</td>';
                 html += '<td>' + elem.price + '</td>';
                 html += '<td>' + elem.expiryDate + '</td>';
-                html += '<td>' + elem.approved + '</td>';
+                // html += '<td>' + elem.approved + '</td>';
+                // const txID = elem.transactionID;
+                // const tmp = "this.disabled=true;";
+                // console.log(elem.approved);
+                if(!elem.approved) {
+                    const tmp = "approveTransaction(" + elem.transactionID.toString() + "); ";
+                    html += '<td><input type="button" value="Finalize" onclick="'+tmp+ 'this.disabled=true; window.location.reload();"'+'></td>';
+                }else{
+                    html += '<td>Finalized</td>';
+                }
+
+                // html += '<td><input type="button" id="${elem.transactionID}" value="Finalize" onclick="approveTransaction(${txID})"/></td>';
                 html += '</tr>';
             }
             html += '</table>';
@@ -155,6 +167,16 @@ function clickSearchUserButton(){
         })
 
 
+}
+function approveTransaction(transactionID) {
+    const row = document.getElementById(transactionID);
+
+    fetch(`http://localhost:8080/transaction/approve/${transactionID}`,
+        { method: 'GET', headers: {} })
+        // .then(a => window.location.reload())
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
 }
 
 </script>

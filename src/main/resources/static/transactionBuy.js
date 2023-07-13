@@ -21,7 +21,7 @@ function getBuyers() {
                 html += `<p>Rate: ${rate}</p>`;
                 html += `<p>Amount: ${amount}</p>`;
                 html += `<p>Price: ${price}</p>`;
-                html += `<button onclick="approveTransaction(${transactionID})" data-id="${rowID}">Approve</button>`; // Передаем ID строки в параметр data-id
+                // html += `<button onclick="approveTransaction(${transactionID})" data-id="${rowID}">Approve</button>`; // Передаем ID строки в параметр data-id
                 html += '</div>';
 
                 i++;
@@ -38,15 +38,7 @@ function getBuyers() {
         });
 }
 
-function approveTransaction(transactionID) {
-    const row = document.getElementById(transactionID);
 
-    fetch(`http://localhost:8080/transaction/approve/${transactionID}`,
-        { method: 'GET', headers: {} })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-}
 
 function addTransactionB()
 {
