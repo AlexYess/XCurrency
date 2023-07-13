@@ -52,12 +52,9 @@
 <div id="search user">
     <label for="usernameInput">Username:</label>
     <input id="usernameInput" name="username" type="text"><br>
+    <div id="answer"></div>
 </div>
-<input type="button" value="Search User" style="font-weight: bolder" onclick="function clickSearchUserButton() {
-    sessionStorage.setItem(`searchUser`, document.getElementById(`usernameInput`).value);
-    window.open(`/portfolio.html`, `_self`)
-}
-clickSearchUserButton()"/><br>
+<input type="button" value="Search User" style="font-weight: bolder" onclick="clickSearchUserButton()"/>
 
 <script type="text/javascript">
 <!--    UserInfo-->
@@ -115,7 +112,6 @@ clickSearchUserButton()"/><br>
                             html += '<td>' + res.username + '</td>';
                         });
                 }
-                // html += '<td>' + elem.buyerID + '</td>';
                 html += '<td>' + elem.currencyCodeFrom + '</td>';
                 html += '<td>' + elem.currencyCodeTo + '</td>';
                 html += '<td>' + elem.rate + '</td>';
@@ -129,6 +125,37 @@ clickSearchUserButton()"/><br>
             document.getElementById("myTx").innerHTML += html;
             return res;
         }).catch(error => {console.error(error);})
+
+let NoSuchUserError = () => {
+    let err = new Error();
+    err.name = 'NoSuchUserError';
+    return err;
+};
+function clickSearchUserButton(){
+    const searchUsername = document.getElementById(`usernameInput`).value;
+    fetch('/users?username='+ searchUsername, {method: 'GET', headers: {'Accept': 'application/json'},})
+        .then(res => {
+            console.log(res.status);
+            if(res.status !== 200){
+                throw NoSuchUserError();
+            }
+            return res;
+        })
+        .then(data => {
+            sessionStorage.setItem(`searchUser`, searchUsername);
+            return data;
+        })
+        .then(a => window.open(`/portfolio.html`, `_self`))
+        .catch(error => {
+            if (error.name === 'NoSuchUserError') {
+                document.getElementById("answer").innerHTML = "User does not exist.";
+            }else{
+                document.getElementById("answer").innerHTML = `Error: ${error}`;
+            }
+        })
+
+
+}
 
 </script>
 
