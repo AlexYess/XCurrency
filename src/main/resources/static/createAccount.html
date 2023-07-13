@@ -56,8 +56,18 @@
     console.log(newUser);
     sendData(newUser);
   }
-
+  function checkUsername(username) {
+    return fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
+            .then(res => {
+              console.log(res.status);
+              if(res.status == 200){
+                return false;
+              }
+              return true;
+            }).catch(error => {console.error(error);})
+  }
   function sendData(data) {
+
     const rawResponse = fetch('/users', {
       method: 'POST', headers: {
         'Accept': 'application/json',
