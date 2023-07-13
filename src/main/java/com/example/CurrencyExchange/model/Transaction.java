@@ -183,10 +183,11 @@ public class Transaction {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rateNode = mapper.readTree(response.toString());
-            this.rate = rateNode.get(currencyCodeTo).asLong();
-            this.price = rate*amount;
+            this.rate = (float) rateNode.get(currencyCodeTo).asDouble();
+            this.price = rate * amount;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
