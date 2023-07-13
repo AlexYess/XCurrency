@@ -45,7 +45,7 @@
 
 
 <script type="text/javascript">
-  function clickSendButton() {
+  async function clickSendButton() {
     const newUser = {};
     newUser.username = document.getElementById("usernameInput").value;
     newUser.firstName = document.getElementById("firstNameInput").value;
@@ -54,34 +54,39 @@
     newUser.country = document.getElementById("countryInput").value.toLowerCase();
     newUser.password = document.getElementById("passwordInput").value;
     console.log(newUser);
-    sendData(newUser);
-  }
-  function checkUsername(username) {
-    return fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
-            .then(res => {
-              console.log(res.status);
-              if(res.status == 200){
-                return false;
-              }
-              return true;
-            }).catch(error => {console.error(error);})
-  }
-  function sendData(data) {
 
+    sendData(newUser);
+
+
+
+  }
+  let getBreackChainError = () => {
+    let err = new Error();
+    err.name = 'BreakChainError';
+    return err;
+  };
+  function sendData(data) {
     const rawResponse = fetch('/users', {
       method: 'POST', headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json' },
       body: JSON.stringify(data) })
-            .then(res => res.json())
+            .then(res => {
+              console.log(res.status);
+              if(res.status !== 200){throw getBreackChainError();}
+              return res;
+            }).then(res => res.json())
             .then(resp => {console.log(resp);
                   return resp;
             })
             .then(responseData => {window.open(`/login.html`)
             })
-
             .catch(error => {
-              let answerDiv = document.getElementById('answer'); answerDiv.innerHTML = `Error: ${error}`;
+              if (error.name === 'BreakChainError') {
+                document.getElementById("answer").innerHTML = "Username has been taken already. Try another username.";
+              }else{
+                document.getElementById("answer").innerHTML = `Error: ${error}`;
+              }
             }) }
 </script>
 </body>

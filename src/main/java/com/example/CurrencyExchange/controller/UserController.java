@@ -31,7 +31,12 @@ public class UserController {
     public User insertUser(@RequestBody UserInput newUser) {
         // US-01 create account
         try {
-            return userService.insertUser(newUser);
+            User userInserted = userService.insertUser(newUser);
+            if (Objects.isNull(userInserted)){
+                throw new IllegalArgumentException("username already taken");
+            }else{
+                return userInserted;
+            }
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -65,37 +70,6 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
-
-//    @GetMapping(path = "/users/{id}/friends")
-//    public Friend getFriends(@PathVariable("id") Long id) {
-//        // requires authentication
-//        try {
-//            return userService.getFriends(id);
-//        } catch (IllegalArgumentException e) {
-//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-//        }
-//    }
-//
-//    @PostMapping(path = "/users/friends/add")
-//    public void addFriend(@RequestBody FriendInput friend){
-//        // US-15 Add Friends
-//        // requires authentication
-//        try {
-//            userService.addFriend(friend);
-//        } catch (IllegalArgumentException e) {
-//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-//        }
-//    }
-//    @PostMapping(path = "/users/{id}/friends/remove")
-//    public void removeFriend(@PathVariable("id") Long id, @RequestBody Long friendId){
-//        // US-16 Remove Friends
-//        // requires authentication
-//        try {
-//            userService.removeFriend(id, friendId);
-//        } catch (IllegalArgumentException e) {
-//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-//        }
-//    }
 
 
 
