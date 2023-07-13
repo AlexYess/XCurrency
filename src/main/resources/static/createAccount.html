@@ -79,7 +79,7 @@
             .then(resp => {console.log(resp);
                   return resp;
             })
-            .then(responseData => {window.open(`/login.html`)
+            .then(responseData => {window.open(`/login.html`, `_self`)
             })
             .catch(error => {
               if (error.name === 'BreakChainError') {
