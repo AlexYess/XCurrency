@@ -36,7 +36,9 @@ public class UserService {
         }
 
     }
-
+    public void deleteAllAccounts(){
+        userRepository.deleteAll();
+    }
 //    public User updateUser(UserInput user) {
 ////        private Long userID = user.get
 //    }

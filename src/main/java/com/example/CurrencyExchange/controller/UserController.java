@@ -71,6 +71,18 @@ public class UserController {
         }
     }
 
+    @PostMapping(path = "/users/delete/all")
+    public void deleteAllAccounts(){
+        // US-04 delete account
+        // requires authentication
+        try {
+            userService.deleteAllAccounts();
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+
 
 
 
