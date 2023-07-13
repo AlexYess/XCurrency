@@ -21,6 +21,7 @@ function applyChanges() {
     const cur1 = document.getElementById("currencyNameInput1").value;
     const cur2 = document.getElementById("currencyNameInput2").value;
     const json = sessionStorage.getItem("user");
+    console.log(json);
 
 
 
