@@ -21,61 +21,50 @@
             background-color: #dddddd;
         }
     </style>
-<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-
-<!--    &lt;!&ndash; jQuery library &ndash;&gt;-->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>-->
-
-<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div>
-    <h1>Home</h1>
-</div>
+<header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="viewCurrencies.html">View Currencies</a>
+        <a href="Transaction/transactionSell.html">Buy Currencies</a>
+        <a href="Transaction/transactionSell.html">Sell Currencies</a>
+        <a href="login.html" style="background-color: red">Logout</a>
+    </nav>
+    <h1>XCurrency</h1>
+    <h2>Home</h2>
+</header>
 
 <br>
 
 
 <div id="userInfo">
-    <h2>My User Info</h2>
+    <h3>My User Info</h3>
 </div>
 
 <div id="myTx">
-    <h2>My Transactions</h2>
+    <h3>My Transactions</h3>
 </div>
-<input type="button" value="Sell Currency" style="background-color: green; font-weight: bolder" onclick="function clickSellCurrencyButton() {
-    window.open(`/transactionSell.html`, `_self`)
-}
-clickSellCurrencyButton()"/><br>
-<br>
-<input type="button" value="Buy Currency" style="background-color: green;font-weight: bolder" onclick="function clickBuyCurrencyButton() {
 
-}
-clickBuyCurrencyButton()"/><br>
-<br>
-<input type="button" value="View Currencies" style="font-weight: bolder" onclick="function clickViewCurrenciesButton() {
-    window.open(`/viewCurrencies.html`)
-}
-clickViewCurrenciesButton()"/><br>
-<br>
-<input type="button" value="Search Rates" style="font-weight: bolder" onclick="function clickSearchRateButton() {
-    window.open(`/searchRates.html`)
-}
-clickSearchRateButton()"/><br>
 
-<input type="button" value="Logout" style="background-color: red; font-weight: bolder" onclick="function clickLogoutButton() {
-    sessionStorage.clear();
-    window.location.replace(`/login.html`)
+<div id="search user">
+    <label for="usernameInput">Username:</label>
+    <input id="usernameInput" name="username" type="text"><br>
+</div>
+<input type="button" value="Search User" style="font-weight: bolder" onclick="function clickSearchUserButton() {
+    sessionStorage.setItem(`searchUser`, document.getElementById(`usernameInput`).value);
+    window.open(`/portfolio.html`, `_self`)
 }
-clickLogoutButton()"/><br>
+clickSearchUserButton()"/><br>
 
 <script type="text/javascript">
 <!--    UserInfo-->
     const user = JSON.parse(sessionStorage.getItem("user"));
-    if(user !== null) {
+    if(user==null) {
+        sessionStorage.clear();
+        window.open(`/login.html`);
+    }else{
         console.log(`user = ${user}`);
         const userInfoDiv = document.getElementById("userInfo");
         userInfoDiv.innerHTML += '<ul>';
@@ -86,8 +75,6 @@ clickLogoutButton()"/><br>
         userInfoDiv.innerHTML += `<br>Email Address: ${user.email}`;
         userInfoDiv.innerHTML += `<br>Country: ${user.country}`;
         userInfoDiv.innerHTML += '</ul>';
-    }else{
-        window.location.replace(`/login.html`);
     }
 // My Tx
     fetch('/transaction/user/' + user.userID.toString(), {method: 'GET', headers: {},})

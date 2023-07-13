@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<header>
+<!--    <nav>-->
+<!--        <a href="viewCurrencies.html">View Currencies</a>-->
+<!--        <a href="Transaction/transactionSell.html">Buy Currencies</a>-->
+<!--        <a href="Transaction/transactionSell.html">Sell Currencies</a>-->
+<!--        <a href="login.html" style="background-color: red">Logout</a>-->
+<!--    </nav>-->
+    <h1>XCurrency</h1>
+    <p>Welcome to XCurrency</p>
+</header>
 <div class="jumbotron text-center">
     <h1>Login</h1>
 </div>
@@ -25,20 +35,35 @@
 </div>
 <div id="answer"></div>
 <div id="sendButtonDiv" class="text-center">
-  <input type="button" value="Login" onclick="clickLoginButton()"/><br>
+    <input type="button" value="Login" onclick="clickLoginButton()"/><br>
+    <a href="/createAccount.html">I don't have an account.</a>
+<!--    <input type="button" value="Create Account" onclick="function clickCreateAccountButton() {-->
+<!--    window.open(`/createAccount.html`, `_self`)-->
+<!--}clickCreateAccountButton()"/><br>-->
 </div>
 <script type="text/javascript">
-
+    let getBreackChainError = () => {
+        let err = new Error();
+        err.name = 'BreackChainError';
+        return err;
+    };
     function clickLoginButton() {
         const username = document.getElementById("usernameInput").value;
         const password = document.getElementById("passwordInput").value;
         fetch('/users?username='+username, {method: 'GET', headers: {'Accept': 'application/json'},})
+            .then(res => {
+                console.log(res.status);
+                if(res.status !== 200){
+                    throw getBreackChainError();
+                }
+                return res;
+            })
             .then(res => res.json())
             .then(data => {
                 sessionStorage.setItem("user", JSON.stringify(data))
             return data;
             })
-            .then(a => window.location.replace(`/home.html`))
+            .then(a => window.open(`/home.html`, `_self`))
             .catch(error => {console.error(error);})
 
   }
