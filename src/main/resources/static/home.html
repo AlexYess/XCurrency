@@ -28,8 +28,7 @@
     <nav>
         <a href="home.html">Home</a>
         <a href="viewCurrencies.html">View Currencies</a>
-        <a href="transactionBuy.html">Buy Currencies</a>
-        <a href="transactionSell.html">Sell Currencies</a>
+        <a href="exchangeCurrencies.html">Exchange Currencies</a>
         <a href="searchRates.html">Compare Rates</a>
         <a href="login.html" style="background-color: red" onclick="sessionStorage.clear();">Logout</a>
     </nav>
@@ -80,8 +79,6 @@
         .then(async res => {
             let html = '<table>';
             html += '<tr>';
-            html += '<th>Seller</th>';
-            html += '<th>Buyer</th>';
             html += '<th>From</th>';
             html += '<th>To</th>';
             html += '<th>Rate</th>';
@@ -95,24 +92,7 @@
             for (const elem of res) {
                 html += '<tr>';
                 // html += '<td>' + elem.sellerID +'</td>';
-                if (elem.sellerID == 0){
-                    html += '<td>-</td>';
-                }else{
-                    await fetch('/users?id=' + elem.sellerID, {method: 'GET', headers: {},})
-                        .then(res => res.json())
-                        .then(res => {
-                            html += '<td>' + res.username + '</td>';
-                        });
-                }
-                if (elem.buyerID == 0){
-                    html += '<td>-</td>';
-                }else{
-                    await fetch('/users?id=' + elem.buyerID, {method: 'GET', headers: {},})
-                        .then(res => res.json())
-                        .then(res => {
-                            html += '<td>' + res.username + '</td>';
-                        });
-                }
+
                 html += '<td>' + elem.currencyCodeFrom + '</td>';
                 html += '<td>' + elem.currencyCodeTo + '</td>';
                 html += '<td>' + elem.rate + '</td>';

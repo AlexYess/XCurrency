@@ -63,7 +63,6 @@ public class TransactionsController {
     public List<Transaction> getSellresByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
     {
         List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(curfrom, curto);
-
         List<Transaction> sellers = new ArrayList<>();
         for (Transaction transaction: temp)
             if ((!transaction.isApproved()) && (transaction.getBuyerID().equals(0L)))
