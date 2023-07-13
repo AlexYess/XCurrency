@@ -77,14 +77,13 @@ public class TransactionsController {
 
     // Get all buyers IDs by currency
     @GetMapping(path = "/transaction/findbuyer/{curfrom}/{curto}")
-    public List<Long> getBuyersByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
+    public List<Transaction> getBuyersByCurrencies(@PathVariable String curfrom, @PathVariable String curto)
     {
         List<Transaction> temp = transactionRepository.findAllByCurrencyCodeFromAndCurrencyCodeTo(curfrom, curto);
-        System.out.println(temp.toString());
-        List<Long> sellers = new ArrayList<>();
+        List<Transaction> sellers = new ArrayList<>();
         for (Transaction transaction: temp)
-            if (transaction.isApproved())
-                sellers.add(transaction.getBuyerID());
+            if ((!transaction.isApproved()) && (transaction.getSellerID().equals(0L)))
+                sellers.add(transaction);
         return sellers;
     }
 
@@ -142,6 +141,13 @@ public class TransactionsController {
     public List<Transaction> getAllTransactions()
     {
         return transactionRepository.findAll();
+    }
+
+    // нужна функция подтверждения
+    @GetMapping(path = "transactions/approve/{ID}")
+    public void approveTransaction(@PathVariable Long ID)
+    {
+        transactionServices.approveTransaction(ID);
     }
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XCurrency - Buy</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link href="transactionSellBuy.css" rel="stylesheet" type="text/css">
+  <script src="transactionBuy.js"></script>
+  <script src="transactionSell.js"></script>
+</head>
+<body>
+<h1>XCurrency</h1>
+<h2>Buy currencies</h2>
+<div class="grid-container">
+  <div class="grid-item">From</div>
+  <div class="grid-item">
+    <input id="curFromID" name="curFrom" type="text">
+  </div>
+  <div class="grid-item">To</div>
+  <div class="grid-item">
+    <input id="curToID" name="curTo" type="text">
+  </div>
+  <div class="grid-item">Amount:</div>
+  <div class="grid-item">
+    <input id="amountInput" name="amount" type="text">
+  </div>
+  <div class="grid-item combined-columns" id="outPrice"></div>
+</div>
+<button onclick="showPrice(); getBuyers()">Press</button>
+<div id="data"></div>
+</body>
+</html>

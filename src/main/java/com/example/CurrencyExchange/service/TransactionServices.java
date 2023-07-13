@@ -28,7 +28,7 @@ public class TransactionServices {
     }
 
     public void setBuyerByID(Long ID, Long buyerID)
-    { // ПОМЕНЯЙ ПУТЬ ДО БАЗЫ БАННЫХ
+    {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/my_db", "my_db_user", "passw0rd")) {
             String updateQuery = "UPDATE TRANSACTION SET BUYERID = ? WHERE TRANSACTIONID = ?";
 
@@ -60,6 +60,26 @@ public class TransactionServices {
             } else {
                 System.out.println("No rows were updated.");
             }
+        }
+    }
+
+    public void approveTransaction(Long ID)
+    {
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/my_db", "my_db_user", "passw0rd")) {
+            String updateQuery = "UPDATE TRANSACTION SET IS_APPROVED = true WHERE TRANSACTIONID = ?";
+            try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+                statement.setLong(1, ID);
+                int rowsAffected = statement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Data updated successfully.");
+                } else {
+                    System.out.println("No rows were updated.");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
