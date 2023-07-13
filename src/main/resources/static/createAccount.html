@@ -29,7 +29,7 @@
   <input id="lastNameInput" name="lastName" type="text"><br>
   <br>
   <label for="passwordInput">Password:</label>
-  <input id="passwordInput" name="password" type="text"><br>
+  <input id="passwordInput" name="password" type="password"><br>
   <br>
   <label for="emailInput">Email:</label>
   <input id="emailInput" name="email" type="text"><br>
@@ -60,7 +60,7 @@
 
 
   }
-  let getBreackChainError = () => {
+  let getBreakChainError = () => {
     let err = new Error();
     err.name = 'BreakChainError';
     return err;
@@ -73,7 +73,7 @@
       body: JSON.stringify(data) })
             .then(res => {
               console.log(res.status);
-              if(res.status !== 200){throw getBreackChainError();}
+              if(res.status !== 200){throw getBreakChainError();}
               return res;
             }).then(res => res.json())
             .then(resp => {console.log(resp);
