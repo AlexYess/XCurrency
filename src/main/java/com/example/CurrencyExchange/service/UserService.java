@@ -9,6 +9,7 @@ import com.example.CurrencyExchange.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -27,10 +28,17 @@ public class UserService {
     public User insertUser(UserInput user) {
         // US-01 create account
         User newUser = user.toNewUser();
-        userRepository.save(newUser);
-        return newUser;
-    }
+        if(Objects.isNull(getUserByUsername(newUser.getUsername()))){
+            userRepository.save(newUser);
+            return newUser;
+        }else{
+            return null;
+        }
 
+    }
+    public void deleteAllAccounts(){
+        userRepository.deleteAll();
+    }
 //    public User updateUser(UserInput user) {
 ////        private Long userID = user.get
 //    }
