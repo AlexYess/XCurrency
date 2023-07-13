@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="styles.css">
+<!--    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">-->
 </head>
 <body>
-<div id="header"></div>
+<header id="header">
+    <nav>
+        <a href="viewCurrencies.html">View Currencies</a>
+        <a href="Transaction/transactionSell.html">Buy Currencies</a>
+        <a href="Transaction/transactionSell.html">Sell Currencies</a>
+        <a href="login.html" style="background-color: red">Logout</a>
+    </nav>
+    <h1>XCurrency</h1>
+</header>
+
 <div id="userInfo">
     <h2>User Info</h2>
 </div>
@@ -19,7 +29,7 @@
     username = sessionStorage.getItem("searchUser");
     let user = undefined;
     if (username!=null){
-        document.getElementById("header").innerHTML = "<h1>Portfolio of User: "+ username +"</h1>";
+        document.getElementById("header").innerHTML += "<h2>Portfolio of User: "+ username +"</h2>";
         fetch('/users?username=' + username, {method: 'GET', headers: {},})
             .then(res => res.json())
             .then(res => user = res)
