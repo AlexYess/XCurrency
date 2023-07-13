@@ -79,3 +79,50 @@ function approveTransaction(transactionID) {
         });
     row.color = 'green';
 }
+
+function addTransactionS()
+{
+    const amount = document.getElementById("amountInput").value;
+    const cur1 = document.getElementById("curFromID").value;
+    const cur2 = document.getElementById("curToID").value;
+
+    const json = sessionStorage.getItem("user");
+    const jsonObject = JSON.parse(json);
+    const userID = jsonObject['userID'];
+
+
+    fetch('http://localhost:8080/transaction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "transactionID": generateUniqueRandomValue(),
+            "sellerID": userID,
+            "buyerID": 0,
+            "currencyCodeFrom": cur1,
+            "currencyCodeTo": cur2,
+            "rate": 0.0,
+            "amount": amount,
+            "expiryDate": formatDate(Date.now()),
+            "approved": false
+        })
+    })
+        .then(response => response.json())
+
+    alert('Transaction Added')
+}
+
+function generateUniqueRandomValue() {
+    const currentDate = new Date();
+    const randomValue = currentDate.getTime() + Math.floor(Math.random() * 1000);
+    return randomValue;
+}
+
+function formatDate(date) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
