@@ -26,7 +26,15 @@ public class Transaction {
     private LocalDate expiryDate;
     private boolean isApproved;
 
-    public Transaction(Long transactionID, Long sellerID, Long buyerID, String currencyCodeFrom, String currencyCodeTo, float rate, float amount, LocalDate expiryDate, boolean isApproved) {
+    public Transaction(Long transactionID,
+                       Long sellerID,
+                       Long buyerID,
+                       String currencyCodeFrom,
+                       String currencyCodeTo,
+                       float rate,
+                       float amount,
+                       LocalDate expiryDate,
+                       boolean isApproved) {
         this.transactionID = transactionID;
         this.sellerID = sellerID;
         this.buyerID = buyerID;
@@ -37,6 +45,40 @@ public class Transaction {
         this.price = rate * amount;
         this.expiryDate = expiryDate;
         this.isApproved = isApproved;
+    }
+
+    public Transaction(Long transactionID,
+                       Long sellerID,
+                       String currencyCodeFrom,
+                       String currencyCodeTo,
+                       float rate,
+                       float amount)
+    {
+        this.transactionID = transactionID;
+        this.sellerID = sellerID;
+        this.currencyCodeFrom = currencyCodeFrom;
+        this.currencyCodeTo = currencyCodeTo;
+        this.rate = rate;
+        this.amount = amount;
+        this.expiryDate = LocalDate.now();
+        this.price = amount * rate;
+    }
+
+    public Transaction(Long transactionID,
+                       String currencyCodeFrom,
+                       String currencyCodeTo,
+                       Long buyerID,
+                       float rate,
+                       float amount)
+    {
+        this.transactionID = transactionID;
+        this.buyerID = buyerID;
+        this.currencyCodeFrom = currencyCodeFrom;
+        this.currencyCodeTo = currencyCodeTo;
+        this.rate = rate;
+        this.amount = amount;
+        this.expiryDate = LocalDate.now();
+        this.price = amount * rate;
     }
 
     public Transaction() {
