@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title style="text-align:center">Home</title>
     <style>
         table {
             font-family: arial, sans-serif;
@@ -36,33 +36,41 @@
     <h1>Home</h1>
 </div>
 
+<br>
+
+
 <div id="userInfo">
     <h2>My User Info</h2>
 </div>
-<br>
-<input type="button" value="View Currencies" onclick="function clickViewCurrenciesButton() {
-window.location.replace(`/viewCurrencies.html`)
-}
-clickViewCurrenciesButton()"/><br>
-<br>
-<input type="button" value="Sell Currency" onclick="function clickSellCurrencyButton() {
-window.location.replace(`/transactionSell.html`)
+
+<div id="myTx">
+    <h2>My Transactions</h2>
+</div>
+<input type="button" value="Sell Currency" style="background-color: green; font-weight: bolder" onclick="function clickSellCurrencyButton() {
+    window.open(`/viewCurrencies.html`, `_self`)
 }
 clickSellCurrencyButton()"/><br>
 <br>
-<input type="button" value="Buy Currency" onclick="function clickBuyCurrencyButton() {
-// window.location.replace(`/transactionBuy.html`)
+<input type="button" value="Buy Currency" style="background-color: green;font-weight: bolder" onclick="function clickBuyCurrencyButton() {
+
 }
 clickBuyCurrencyButton()"/><br>
 <br>
-<input type="button" value="Logout" style="background-color: red" onclick="function clickLogoutButton() {
+<input type="button" value="View Currencies" style="font-weight: bolder" onclick="function clickViewCurrenciesButton() {
+    window.open(`/viewCurrencies.html`)
+}
+clickViewCurrenciesButton()"/><br>
+<br>
+<input type="button" value="Search Rates" style="font-weight: bolder" onclick="function clickSearchRateButton() {
+    window.open(`/searchRates.html`)
+}
+clickSearchRateButton()"/><br>
+
+<input type="button" value="Logout" style="background-color: red; font-weight: bolder" onclick="function clickLogoutButton() {
     sessionStorage.clear();
     window.location.replace(`/login.html`)
 }
 clickLogoutButton()"/><br>
-<div id="myTx">
-    <h2>My Transactions</h2>
-</div>
 
 <script type="text/javascript">
 <!--    UserInfo-->
@@ -84,38 +92,54 @@ clickLogoutButton()"/><br>
 // My Tx
     fetch('/transaction/user/' + user.userID.toString(), {method: 'GET', headers: {},})
     .then(res => res.json())
-        .then(res => {
-        let html = '<table>';
-        html += '<tr>';
-        html += '<th>Transaction ID</th>';
-        html += '<th>Seller ID</th>';
-        html += '<th>Buyer ID</th>';
-        html += '<th>From</th>';
-        html += '<th>To</th>';
-        html += '<th>Rate</th>';
-        html += '<th>Amount</th>';
-        html += '<th>Price</th>';
-        html += '<th>Expiry Date</th>';
-        html += '<th>Finished</th>';
-        html += '</tr>';
-
-        res.forEach(elem => {
+        .then(async res => {
+            let html = '<table>';
             html += '<tr>';
-            html += '<td>' + elem.transactionID +'</td>';
-            html += '<td>' + elem.sellerID +'</td>';
-            html += '<td>' + elem.buyerID +'</td>';
-            html += '<td>' + elem.currencyCodeFrom +'</td>';
-            html += '<td>' + elem.currencyCodeTo +'</td>';
-            html += '<td>' + elem.rate +'</td>';
-            html += '<td>' + elem.amount +'</td>';
-            html += '<td>' + elem.price +'</td>';
-            html += '<td>' + elem.expiryDate +'</td>';
-            html += '<td>' + elem.approved +'</td>';
+            html += '<th>Seller</th>';
+            html += '<th>Buyer</th>';
+            html += '<th>From</th>';
+            html += '<th>To</th>';
+            html += '<th>Rate</th>';
+            html += '<th>Amount</th>';
+            html += '<th>Price</th>';
+            html += '<th>Expiry Date</th>';
+            html += '<th>Finished</th>';
             html += '</tr>';
-        });
-        html += '</table>';
-        document.getElementById("myTx").innerHTML += html;
-        return res;
+
+            for (const elem of res) {
+                html += '<tr>';
+                // html += '<td>' + elem.sellerID +'</td>';
+                if (elem.sellerID == 0){
+                    html += '<td>-</td>';
+                }else{
+                    await fetch('/users?id=' + elem.sellerID, {method: 'GET', headers: {},})
+                        .then(res => res.json())
+                        .then(res => {
+                            html += '<td>' + res.username + '</td>';
+                        });
+                }
+                if (elem.buyerID == 0){
+                    html += '<td>-</td>';
+                }else{
+                    await fetch('/users?id=' + elem.buyerID, {method: 'GET', headers: {},})
+                        .then(res => res.json())
+                        .then(res => {
+                            html += '<td>' + res.username + '</td>';
+                        });
+                }
+                // html += '<td>' + elem.buyerID + '</td>';
+                html += '<td>' + elem.currencyCodeFrom + '</td>';
+                html += '<td>' + elem.currencyCodeTo + '</td>';
+                html += '<td>' + elem.rate + '</td>';
+                html += '<td>' + elem.amount + '</td>';
+                html += '<td>' + elem.price + '</td>';
+                html += '<td>' + elem.expiryDate + '</td>';
+                html += '<td>' + elem.approved + '</td>';
+                html += '</tr>';
+            }
+            html += '</table>';
+            document.getElementById("myTx").innerHTML += html;
+            return res;
         }).catch(error => {console.error(error);})
 
 </script>
