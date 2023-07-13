@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <style>
         table {
@@ -20,9 +21,21 @@
             background-color: #dddddd;
         }
     </style>
+<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+
+<!--    &lt;!&ndash; jQuery library &ndash;&gt;-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>-->
+
+<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<h1>Home</h1>
+<div>
+    <h1>Home</h1>
+</div>
+
 <div id="userInfo">
     <h2>My User Info</h2>
 </div>
@@ -42,7 +55,7 @@ clickSellCurrencyButton()"/><br>
 }
 clickBuyCurrencyButton()"/><br>
 <br>
-<input type="button" value="Logout" onclick="function clickLogoutButton() {
+<input type="button" value="Logout" style="background-color: red" onclick="function clickLogoutButton() {
     sessionStorage.clear();
     window.location.replace(`/login.html`)
 }
