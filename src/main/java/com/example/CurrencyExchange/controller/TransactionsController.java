@@ -4,11 +4,7 @@ import com.example.CurrencyExchange.dto.TransactionInput;
 import com.example.CurrencyExchange.model.Transaction;
 import com.example.CurrencyExchange.repository.TransactionRepository;
 import com.example.CurrencyExchange.service.TransactionServices;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import io.swagger.v3.core.util.Json;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
