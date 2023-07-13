@@ -21,6 +21,8 @@ function applyChanges() {
     const cur1 = document.getElementById("currencyNameInput1").value;
     const cur2 = document.getElementById("currencyNameInput2").value;
     const json = sessionStorage.getItem("user");
+    const jsonObject = JSON.parse(json);
+    const userID = jsonObject['userID'];
 
 
 
@@ -32,7 +34,7 @@ function applyChanges() {
         body: JSON.stringify({
             "transactionID": generateUniqueRandomValue(),
             "sellerID": 0,
-            "buyerID": json['userID'],
+            "buyerID": userID,
             "currencyCodeFrom": cur1,
             "currencyCodeTo": cur2,
             "rate": 0.0,
