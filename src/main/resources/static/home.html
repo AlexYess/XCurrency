@@ -31,7 +31,7 @@
         <a href="transactionBuy.html">Buy Currencies</a>
         <a href="transactionSell.html">Sell Currencies</a>
         <a href="searchRates.html">Compare Rates</a>
-        <a href="login.html" style="background-color: red">Logout</a>
+        <a href="login.html" style="background-color: red" onclick="sessionStorage.clear();">Logout</a>
     </nav>
     <h1>XCurrency</h1>
     <h2>Home</h2>
@@ -48,8 +48,8 @@
     <h3>My Transactions</h3>
 </div>
 
-
 <div id="search user">
+    <h3>Search User</h3>
     <label for="usernameInput">Username:</label>
     <input id="usernameInput" name="username" type="text"><br>
     <div id="answer"></div>
