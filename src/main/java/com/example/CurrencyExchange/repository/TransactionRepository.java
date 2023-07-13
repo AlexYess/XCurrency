@@ -23,10 +23,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
 
     List<Transaction> findAllByBuyerID(Long ID);
 
-
-
-
-
+    @Override
+    void deleteAll();
 
     //find seller by 2 codes and if approved is false - d
     //find buyer by code (similar to the previous one) - d
