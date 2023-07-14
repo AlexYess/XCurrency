@@ -7,7 +7,7 @@ function getBuyers() {
     const curFrom = curFromInput.value.toLowerCase();
     const curTo = curToInput.value.toLowerCase();
 
-    fetch(`http://localhost:8080/transaction/findbuyer/${curTo}/${curFrom}`)
+    fetch(`/transaction/findbuyer/${curTo}/${curFrom}`)
         .then(response => response.json())
         .then(async dataList => {
             let html = '';
@@ -51,7 +51,7 @@ function addTransactionB()
     const userID = jsonObject['userID'];
 
 
-    fetch('http://localhost:8080/transaction', {
+    fetch('/transaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

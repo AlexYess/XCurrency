@@ -65,7 +65,10 @@ public class TransactionServices {
 
     public void approveTransaction(Long ID)
     {
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/my_db", "my_db_user", "passw0rd")) {
+        try (Connection connection = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/my_db",
+                "my_db_user",
+                "passw0rd")) {
             String updateQuery = "UPDATE TRANSACTION SET IS_APPROVED = true WHERE TRANSACTIONID = ?";
             try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
                 statement.setLong(1, ID);
