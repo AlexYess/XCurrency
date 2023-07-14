@@ -26,7 +26,7 @@ function applyChanges() {
 
 
 
-    fetch('http://localhost:8080/transaction', {
+    fetch('/transaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
