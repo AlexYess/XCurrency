@@ -7,25 +7,25 @@ function getBuyers() {
     const curFrom = curFromInput.value.toLowerCase();
     const curTo = curToInput.value.toLowerCase();
 
-    fetch(`/transaction/findbuyer/${curTo}/${curFrom}`)
+    fetch(`http://localhost:8080/transaction/findbuyer/${curTo}/${curFrom}`)
         .then(response => response.json())
-        .then(async dataList => {
+        .then(dataList => {
             let html = '';
-            for (const data of dataList) {
-                const {buyerID, rate, amount, price, transactionID} = data;
-                html += '<table>';
-                html += '<tr><th>Username</th><th>Rate</th><th>Amount</th><th>Price</th></tr>';
-                html += '<tr>'
-                await fetch('/users?id=' + buyerID, {method: 'GET', headers: {},})
-                    .then(res => res.json())
-                    .then(res => {
-                        html += '<td>' + res.username + '</td>';
-                    });
-                html += `<td>${rate}</td>`;
-                html += `<td>${amount}</td>`;
-                html += `<td>${price}</td>`;
+            let i = 0;
+            dataList.forEach(data => {
+                const { buyerID, rate, amount, price, transactionID } = data;
+                const rowID = `row_${transactionID}`;
 
-            }
+                html += `<div id="${rowID}">`;
+                html += `<p>Seller ID: ${buyerID}</p>`;
+                html += `<p>Rate: ${rate}</p>`;
+                html += `<p>Amount: ${amount}</p>`;
+                html += `<p>Price: ${price}</p>`;
+                html += `<button onclick="approveTransaction(${transactionID})" data-id="${rowID}">Approve</button>`; // Передаем ID строки в параметр data-id
+                html += '</div>';
+
+                i++;
+            });
 
             if (html === '') {
                 html = `<p>We could not find any seller :(</p>`;
@@ -38,7 +38,15 @@ function getBuyers() {
         });
 }
 
+function approveTransaction(transactionID) {
+    const row = document.getElementById(transactionID);
 
+    fetch(`http://localhost:8080/transactions/approve/${transactionID}`,
+        { method: 'GET', headers: {} })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
 
 function addTransactionB()
 {
@@ -51,7 +59,8 @@ function addTransactionB()
     const userID = jsonObject['userID'];
 
 
-    fetch('/transaction', {
+
+    fetch('http://localhost:8080/transaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
