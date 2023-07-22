@@ -60,7 +60,7 @@ public class UserController {
         return user;
     }
 
-    @GetMapping(path = "/users/{id}/delete")
+    @PostMapping(path = "/users/{id}/delete")
     public void deleteMyAccount(@PathVariable("id") Long id){
         // US-04 delete account
         // requires authentication
@@ -71,7 +71,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/users/delete/all")
+    @PostMapping(path = "/users/delete/all")
     public void deleteAllAccounts(){
         // US-04 delete account
         // requires authentication
