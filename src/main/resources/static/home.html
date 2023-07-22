@@ -148,7 +148,7 @@ function clickSearchUserButton(){
 function approveTransaction(transactionID) {
     const row = document.getElementById(transactionID);
 
-    fetch(`http://localhost:8080/transaction/approve/${transactionID}`,
+    fetch(`/transaction/approve/${transactionID}`,
         { method: 'GET', headers: {} })
         // .then(a => window.location.reload())
         .catch(error => {
