@@ -115,6 +115,3 @@ GET http://localhost:8080/transaction/all
 <> 2023-07-12T092221.200.json
 <> 2023-07-11T193112-3.200.json
 <> 2023-07-11T193043.404.json
-
-###
-GET http://localhost:8080/transaction/nukethosebitches

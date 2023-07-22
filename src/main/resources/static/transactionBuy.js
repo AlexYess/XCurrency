@@ -9,23 +9,23 @@ function getBuyers() {
 
     fetch(`http://localhost:8080/transaction/findbuyer/${curTo}/${curFrom}`)
         .then(response => response.json())
-        .then(dataList => {
+        .then(async dataList => {
             let html = '';
-            let i = 0;
-            dataList.forEach(data => {
-                const { buyerID, rate, amount, price, transactionID } = data;
-                const rowID = `row_${transactionID}`;
+            for (const data of dataList) {
+                const {buyerID, rate, amount, price, transactionID} = data;
+                html += '<table>';
+                html += '<tr><th>Username</th><th>Rate</th><th>Amount</th><th>Price</th></tr>';
+                html += '<tr>'
+                await fetch('/users?id=' + buyerID, {method: 'GET', headers: {},})
+                    .then(res => res.json())
+                    .then(res => {
+                        html += '<td>' + res.username + '</td>';
+                    });
+                html += `<td>${rate}</td>`;
+                html += `<td>${amount}</td>`;
+                html += `<td>${price}</td>`;
 
-                html += `<div id="${rowID}">`;
-                html += `<p>Seller ID: ${buyerID}</p>`;
-                html += `<p>Rate: ${rate}</p>`;
-                html += `<p>Amount: ${amount}</p>`;
-                html += `<p>Price: ${price}</p>`;
-                html += `<button onclick="approveTransaction(${transactionID})" data-id="${rowID}">Approve</button>`; // Передаем ID строки в параметр data-id
-                html += '</div>';
-
-                i++;
-            });
+            }
 
             if (html === '') {
                 html = `<p>We could not find any seller :(</p>`;
@@ -38,15 +38,7 @@ function getBuyers() {
         });
 }
 
-function approveTransaction(transactionID) {
-    const row = document.getElementById(transactionID);
 
-    fetch(`http://localhost:8080/transactions/approve/${transactionID}`,
-        { method: 'GET', headers: {} })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-}
 
 function addTransactionB()
 {
@@ -57,7 +49,6 @@ function addTransactionB()
     const json = sessionStorage.getItem("user");
     const jsonObject = JSON.parse(json);
     const userID = jsonObject['userID'];
-
 
 
     fetch('http://localhost:8080/transaction', {

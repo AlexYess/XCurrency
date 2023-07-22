@@ -38,7 +38,7 @@ function getSellers() {
     const curFrom = curFromInput.value.toLowerCase();
     const curTo = curToInput.value.toLowerCase();
 
-    fetch(`/transaction/findseller/${curFrom}/${curTo}`)
+    fetch(`http://localhost:8080/transaction/findseller/${curFrom}/${curTo}`)
         .then(response => response.json())
         .then(dataList => {
             let html = '';
@@ -91,7 +91,7 @@ function addTransactionS()
     const userID = jsonObject['userID'];
 
 
-    fetch('/transaction', {
+    fetch('http://localhost:8080/transaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
