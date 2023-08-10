@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>currency-exchange</artifactId>
-	<version>latest</version>
+	<version>actualfinal</version>
 	<name>CurrencyExchange</name>
 	<description>su-2023 project</description>
 	<properties>
